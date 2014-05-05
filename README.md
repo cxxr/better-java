@@ -1,19 +1,10 @@
-Title: Better Java
-Date: 2014-04-22 16:12
-Tags: advice, java
-Category: programming
-Author: Sean Cassidy
-status:draft
-
 Java is one of the most popular programming languages around, but no one seems
 to enjoy using it. Well, Java is actually an alright programming language, and
 since Java 8 came out recently, I decided to compile a list of libraries, 
 practices, and tools to make using Java better. 
 
-This article is [on Github](). Feel free to contribute and add your own
-Java tips and best practices.
-
-[TOC]
+This article is [on Github](https://github.com/cxxr/better-java). Feel free to
+contribute and add your own Java tips and best practices.
 
 # Style
 
