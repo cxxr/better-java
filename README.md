@@ -3,8 +3,8 @@ to enjoy using it. Well, Java is actually an alright programming language, and
 since Java 8 came out recently, I decided to compile a list of libraries, 
 practices, and tools to make using Java better. 
 
-This article is [on Github](https://github.com/cxxr/better-java). Feel free to
-contribute and add your own Java tips and best practices.
+This article was originally posted on 
+[my blog](http://blog.seancassidy.me/better-java.html).
 
 # Style
 
