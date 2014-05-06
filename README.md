@@ -54,6 +54,57 @@ If you're storing objects like Map or List that can be modified easily, you
 should instead use ImmutableMap or ImmutableList, which is discussed in the 
 section about immutability.
 
+### The Builder Pattern
+
+If you have a rather complicated object that you want to build a struct for,
+consider the Builder pattern.
+
+You make a subclass in your object which will construct your object. It uses
+mutable state, but as soon as you call build, it will emit an immutable
+object.
+
+Imagine we had a more complicated *DataHolder*. The builder for it might look
+like:
+
+    :::java
+    public class ComplicatedDataHolder {
+        public final String data;
+        public final int num;
+        // lots more fields and a constructor
+
+        public class Builder {
+            private String data;
+            private int num;
+            
+            public Builder data(String data) {
+                this.data = data;
+                return this;
+            }
+
+            public Builder num(int num) {
+                this.num = num;
+                return this;
+            }
+
+            public ComplicatedDataHolder build() {
+                return new ComplicatedDataHolder(data, num); // etc
+            }  
+        }
+    }
+
+Then to use it:
+
+    :::java
+    final ComplicatedDataHolder cdh = new ComplicatedDataHolder.Builder()
+        .data("set this")
+        .num(523)
+        .build();
+
+There are [better examples of Builders elsewhere][builderex] but this should
+give you a taste for what it's like. This ends up with a lot of the boilerplate
+we were trying to avoid, but it gets you immutable objects and a very fluent
+interface.
+
 ## Dependency injection
 
 This is more of a software engineering section than a Java section, but one of
@@ -260,11 +311,16 @@ is, something like this:
 Which version will get pulled into your project?
 
 With the [Maven dependency convergence plugin][depconverge], the build will 
-error if your dependencies don't use the same version. Then you can choose 
-which version you want manually.
+error if your dependencies don't use the same version. Then, you have two
+options for solving the conflict:
 
-This simple plugin solves many runtime bugs and will save you a lot of
-headache.
+1. Explicitly pick a version for Bar in your *dependencyManagement* section
+2. Exclude Bar from either Foo or Widget
+
+The choice of which to choose depends on your situation: if you want to track
+one project's version, then exclude makes sense. On the other hand, if you
+want to be explicit about it, you can pick a version, although you'll need to
+update it when you update the other dependencies.
 
 ## Continuous Integration
 
@@ -365,7 +421,7 @@ code like:
                 Collections2.filter(list, new Predicate<String>() {
                     @Override
                     public boolean apply(@Nullable String input) {
-                        return input.startsWith("S");
+                        return input.startsWith("s");
                     }
                 }),
                 new Function<String, String>() {
@@ -581,7 +637,7 @@ when you want to experiment quickly.
 
 Java's type system is pretty weak. It doesn't differentiate between Strings
 and Strings that are actually regular expressions, nor does it do any
-[taint checking][taint] checking. However, [the Checker Framework][checker]
+[taint checking][taint]. However, [the Checker Framework][checker]
 does this and more.
 
 It uses annotations like *@Nullable* to check types. You can even define 
@@ -698,3 +754,4 @@ Resources to help you become a Java master.
 [taint]: http://en.wikipedia.org/wiki/Taint_checking
 [checker]: http://types.cs.washington.edu/checker-framework/
 [customchecker]: http://types.cs.washington.edu/checker-framework/tutorial/webpages/encryption-checker-cmd.html
+[builderex]: http://jlordiales.wordpress.com/2012/12/13/the-builder-pattern-in-practice/
