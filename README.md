@@ -109,19 +109,14 @@ interface.
 
 This is more of a software engineering section than a Java section, but one of
 the best ways to write testable software is to use [dependency injection][di]
-(DI).
+(DI). Because Java strongly encourages OO design, to make testable software,
+you need to use DI.
 
-In Java, you can do this is with the [Spring Framework][spring]. You should
-provide the dependencies via constructor arguments rather than using the 
-traditional bean way of setting properties. This has several advantages:
-
-1. No need for [InitializingBean][initializingbean]
-2. You can make immutable objects
-3. Partially constructed objects are a lot less likely
-
-And one more thing: [don't overuse Spring][springso]. There should be
-absolutely no logic or control structures in XML. It should only inject 
-dependencies.
+In Java, this is typically done with the [Spring Framework][spring]. It has an
+XML configuration based wiring, and is still rather popular.  It's important
+that you [don't overuse Spring][springso] because of its XML-based configuration
+format. There should be absolutely no logic or control structures in XML.
+It should only inject dependencies.
 
 Good alternatives to using Spring is Google and Square's [Dagger][dagger]
 library or Google's [Guice][guice]. They don't use Spring's XML 
