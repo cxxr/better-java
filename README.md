@@ -250,6 +250,17 @@ If you absolutely need a code formatting guide, I highly recommend
 [Google's Java Style][googlestyle] guide. The best part of that guide is the
 [Programming Practices][googlepractices] section. Definitely worth a read.
 
+### Javadoc
+
+Documenting your user facing code is important. And this means 
+[using examples][javadocex] and using sensible descriptions of variables,
+methods, and classes.
+
+The corollary of this is to not document what doesn't need documenting. If you
+don't have anything to say about what an argument is, or if it's obvious,
+don't document it. Boilerplate documentation is worse than no documentation at
+all, as it tricks your users into thinking that there is documentation.
+
 # Deploying
 
 Deploying Java properly can be a bit tricky. 
@@ -750,3 +761,6 @@ Resources to help you become a Java master.
 [checker]: http://types.cs.washington.edu/checker-framework/
 [customchecker]: http://types.cs.washington.edu/checker-framework/tutorial/webpages/encryption-checker-cmd.html
 [builderex]: http://jlordiales.wordpress.com/2012/12/13/the-builder-pattern-in-practice/
+[javadocex]: http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/ImmutableMap.Builder.html
+
+
