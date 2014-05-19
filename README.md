@@ -514,13 +514,16 @@ yet, but I can't wait to.
 
 ### Play framework
 
-Ditch CXF. The [Play framework][play] is where it's at. CXF is confusing, is
-poorly documented, and has really odd edge cases. (Exactly when is your
-annotation checked, and if you have a derived class, does it check the parent
-class?)
+**Good alternative**: [Dropwizard][dropwizard]
+
+Ditch CXF and JAX-RS. The [Play framework][play] is where it's at. CXF is 
+confusing, is poorly documented, and has really odd edge cases. (Exactly when 
+is your annotation checked, and if you have a derived class, does it check the
+parent class?) 
 
 The Play framework, on the other hand is simple and easy to use. It's available
-for both Java and Scala.
+for both Java and Scala. It suffers slightly from being Scala-first, but it's
+still good to use in Java.
 
 ### SLF4J
 
@@ -762,5 +765,7 @@ Resources to help you become a Java master.
 [customchecker]: http://types.cs.washington.edu/checker-framework/tutorial/webpages/encryption-checker-cmd.html
 [builderex]: http://jlordiales.wordpress.com/2012/12/13/the-builder-pattern-in-practice/
 [javadocex]: http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/ImmutableMap.Builder.html
+[dropwizard]: https://dropwizard.github.io/dropwizard/
+
 
 
