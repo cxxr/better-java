@@ -524,7 +524,7 @@ yet, but I can't wait to.
 
 ### Play framework
 
-**Good alternative**: [Jersey][jersey]
+**Good alternatives**: [Jersey][jersey] or [Spark][spark]
 
 Ditch CXF and JAX-RS. The [Play framework][play] is where it's at. CXF is 
 confusing, is poorly documented, and has really odd edge cases. (Exactly when 
@@ -778,6 +778,7 @@ Resources to help you become a Java master.
 [dropwizard]: https://dropwizard.github.io/dropwizard/
 [jersey]: https://jersey.java.net/
 [springboot]: http://projects.spring.io/spring-boot/
+[spark]: http://www.sparkjava.com/
 
 
 
