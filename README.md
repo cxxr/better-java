@@ -261,6 +261,28 @@ don't have anything to say about what an argument is, or if it's obvious,
 don't document it. Boilerplate documentation is worse than no documentation at
 all, as it tricks your users into thinking that there is documentation.
 
+## Streams
+
+[Java 8][java8] has a nice [stream][javastream] and lambda syntax. You could
+write code like this:
+
+    :::java
+    final List<String> filtered = list.stream()
+        .filter(s -> s.startsWith("s"))
+        .map(s -> s.toUpperCase());
+
+Instead of this:
+
+    :::java
+    final List<String> filtered = Lists.newArrayList();
+    for (String str : list) {
+        if (str.startsWith("s") {
+            filtered.add(str.toUpperCase());
+        }
+    }
+
+This allows you to write more fluent code, which is more readable.
+
 # Deploying
 
 Deploying Java properly can be a bit tricky. 
@@ -417,40 +439,10 @@ I also like writing mutable collections the Guava way:
 There are static classes for [Lists][lists], [Maps][maps], [Sets][sets] and
 more. They're cleaner and easier to read.
 
-Perhaps my favorite feature of Guava is the [Collections2][collections2] class,
-which has methods like filter and transform. They allow you to write fluent
-code like:
+If you're stuck with Java 6 or 7, you can use the [Collections2][collections2]
+class, which has methods like filter and transform. They allow you to write
+fluent code without [Java 8][java8]'s stream support.
 
-    :::java
-    final List<String> filtered = Lists.newArrayList(
-            Collections2.transform(
-                Collections2.filter(list, new Predicate<String>() {
-                    @Override
-                    public boolean apply(@Nullable String input) {
-                        return input.startsWith("s");
-                    }
-                }),
-                new Function<String, String>() {
-                    @Nullable
-                    @Override
-                    public String apply(@Nullable String input) {
-                        return input.toUpperCase();
-                    }
-                }
-            ));
-
-It's a little verbose (well we are programming Java after all), but it lets
-us write code that operates on streams of data rather than writing loops. Used
-sparingly, it can turn strange, confusing code into easy to read and easy to
-understand code.
-
-An even better alternative to using transform/filter is using [Java 8][java8]'s
-[stream][javastream] and lambda syntax. You could turn all that code to this:
-
-    :::java
-    final List<String> filtered = list.stream()
-        .filter(s -> s.startsWith("s"))
-        .map(s -> s.toUpperCase());
 
 Guava has simple things too, like a **Joiner** that joins strings on 
 separators and a [class to handle interrupts][uninterrupt] by ignoring them.
