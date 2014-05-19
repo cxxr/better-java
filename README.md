@@ -285,7 +285,25 @@ This allows you to write more fluent code, which is more readable.
 
 # Deploying
 
-Deploying Java properly can be a bit tricky. 
+Deploying Java properly can be a bit tricky. There are two main ways to deploy
+Java nowadays: use a framework or use a home grown solution that is more
+flexible.
+
+## Frameworks
+
+Because deploying Java isn't easy, frameworks have been made which can help.
+Two of the best are [Dropwizard][dropwizard] and [Spring Boot][springboot].
+The [Play framework][play] can also be considered one of these deployment 
+frameworks as well.
+
+All of them try to lower the barrier to getting your code out the door. 
+They're especially helpful if you're new to Java or if you need to get things
+done fast. Single JAR deployments are just easier than complicated WAR or EAR
+deployments.
+
+However, they can be somewhat inflexible and are rather opinionated, so if
+your project doesn't fit with the choices the developers of your framework
+made, you'll have to migrate to a more hand-rolled configuration.
 
 ## Maven
 
@@ -506,7 +524,7 @@ yet, but I can't wait to.
 
 ### Play framework
 
-**Good alternative**: [Dropwizard][dropwizard]
+**Good alternative**: [Jersey][jersey]
 
 Ditch CXF and JAX-RS. The [Play framework][play] is where it's at. CXF is 
 confusing, is poorly documented, and has really odd edge cases. (Exactly when 
@@ -758,6 +776,8 @@ Resources to help you become a Java master.
 [builderex]: http://jlordiales.wordpress.com/2012/12/13/the-builder-pattern-in-practice/
 [javadocex]: http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/ImmutableMap.Builder.html
 [dropwizard]: https://dropwizard.github.io/dropwizard/
+[jersey]: https://jersey.java.net/
+[springboot]: http://projects.spring.io/spring-boot/
 
 
 
