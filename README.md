@@ -615,6 +615,26 @@ If you have to set up the same dependency over and over, you should probably
 put that in a [test fixture][junitfixture] and put *assertIsSatisfied* in an
 *@After* fixture.
 
+### AssertJ
+
+Do you ever do this with jUnit?
+
+    :::java
+    final List<String> result = some.testMethod();
+    assertEquals(4, result.size());
+    assertTrue(result.contains("some result"));
+    assertTrue(result.contains("some other result"));
+    assertFalse(result.contains("shouldn't be here"));
+
+This is just annoying boilerplate. [AssertJ][assertj] solves this. You can
+transform the same code into this:
+
+    :::java
+    assertThat(some.testMethod()).hasSize(4)
+                                 .contains("some result", "some other result")
+                                 .doesNotContain("shouldn't be here");
+
+This fluent interface makes your tests more readable. What more could you want?
 
 # Tools
 
@@ -779,6 +799,7 @@ Resources to help you become a Java master.
 [jersey]: https://jersey.java.net/
 [springboot]: http://projects.spring.io/spring-boot/
 [spark]: http://www.sparkjava.com/
+[assertj]: http://joel-costigliola.github.io/assertj/index.html
 
 
 
