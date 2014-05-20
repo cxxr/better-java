@@ -526,14 +526,24 @@ yet, but I can't wait to.
 
 **Good alternatives**: [Jersey][jersey] or [Spark][spark]
 
-Ditch CXF and JAX-RS. The [Play framework][play] is where it's at. CXF is 
-confusing, is poorly documented, and has really odd edge cases. (Exactly when 
-is your annotation checked, and if you have a derived class, does it check the
-parent class?) 
+There are two main camps for doing RESTful web services in Java: 
+[JAX-RS][jaxrs] and everything else.
 
-The Play framework, on the other hand is simple and easy to use. It's available
-for both Java and Scala. It suffers slightly from being Scala-first, but it's
-still good to use in Java.
+JAX-RS is the traditional way. You combine annotations with interfaces and
+implementations to form the web service using something like [Jersey][jersey].
+What's nice about this is you can easily make clients out of just the 
+interface class.
+
+The [Play framework][play] is a radically different take on web services on
+the JVM: you have a routes file and then you write the classes referenced in
+those routes. It's actually an [entire MVC framework][playdoc], but you can
+easily use it for just REST web services.
+
+It's available for both Java and Scala. It suffers slightly from being 
+Scala-first, but it's still good to use in Java.
+
+If you're used to micro-frameworks like Flask in Python, [Spark][spark] will
+be very familiar. It works especially well with Java 8.
 
 ### SLF4J
 
@@ -800,6 +810,8 @@ Resources to help you become a Java master.
 [springboot]: http://projects.spring.io/spring-boot/
 [spark]: http://www.sparkjava.com/
 [assertj]: http://joel-costigliola.github.io/assertj/index.html
+[jaxrs]: http://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services
+[playdoc]: http://www.playframework.com/documentation/2.3.x/Anatomy
 
 
 
