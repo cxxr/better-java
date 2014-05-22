@@ -72,7 +72,7 @@ like:
         public final int num;
         // lots more fields and a constructor
 
-        public class Builder {
+        public static class Builder {
             private String data;
             private int num;
             
