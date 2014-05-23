@@ -228,11 +228,11 @@ And, since they're interfaces, you can implement multiple of them.
 
     :::java
     public interface Thrower {
-        public void throwIfCondition(boolean condition, String msg) {
+        default void throwIfCondition(boolean condition, String msg) {
             // ...
         }
 
-        public void throwAorB(Throwable a, Throwable b, boolean throwA) {
+        default void throwAorB(Throwable a, Throwable b, boolean throwA) {
             // ...
         }
     }
