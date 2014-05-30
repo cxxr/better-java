@@ -112,11 +112,11 @@ the best ways to write testable software is to use [dependency injection][di]
 (DI). Because Java strongly encourages OO design, to make testable software,
 you need to use DI.
 
-In Java, this is typically done with the [Spring Framework][spring]. It has an
-XML configuration based wiring, and is still rather popular.  It's important
-that you [don't overuse Spring][springso] because of its XML-based configuration
-format. There should be absolutely no logic or control structures in XML.
-It should only inject dependencies.
+In Java, this is typically done with the [Spring Framework][spring]. It has a
+either code-based wiring or XML configuration-based wiring If you use the XML 
+configuration, it's important that you [don't overuse Spring][springso] because
+of its XML-based configuration format.  There should be absolutely no logic or
+control structures in XML. It should only inject dependencies.
 
 Good alternatives to using Spring is Google and Square's [Dagger][dagger]
 library or Google's [Guice][guice]. They don't use Spring's XML 
