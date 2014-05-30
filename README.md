@@ -496,10 +496,10 @@ It's simple to use and works great:
 ### Joda-Time
 
 [Joda-Time][joda] is easily the best time library I've ever used. Simple,
-straightforward, easy to test. What else can you ask for?
+straightforward, easy to test. What else can you ask for? 
 
-My favorite class in this library is Duration, because I use it for passing
-around how long to wait, or how long until I can retry something.
+You only need this if you're not yet on Java 8, as that has its own new 
+[date time][java8datetime] library that doesn't suck.
 
 ### Lombok
 
@@ -812,6 +812,7 @@ Resources to help you become a Java master.
 [assertj]: http://joel-costigliola.github.io/assertj/index.html
 [jaxrs]: http://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services
 [playdoc]: http://www.playframework.com/documentation/2.3.x/Anatomy
+[java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
 
 
 
