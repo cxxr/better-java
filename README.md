@@ -269,12 +269,13 @@ write code like this:
     :::java
     final List<String> filtered = list.stream()
         .filter(s -> s.startsWith("s"))
-        .map(s -> s.toUpperCase());
+        .map(s -> s.toUpperCase())
+        .collect(Collectors.toList());
 
 Instead of this:
 
     :::java
-    final List<String> filtered = Lists.newArrayList();
+    final List<String> filtered = new ArrayList<>();
     for (String str : list) {
         if (str.startsWith("s") {
             filtered.add(str.toUpperCase());
@@ -449,7 +450,7 @@ I also like writing mutable collections the Guava way:
 
     :::java
     // Instead of
-    final Map<String, Widget> map = new HashMap<String, Widget>();
+    final Map<String, Widget> map = new HashMap<>();
     
     // You can use
     final Map<String, Widget> map = Maps.newHashMap();
