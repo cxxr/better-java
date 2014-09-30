@@ -16,35 +16,37 @@ The new style is much cleaner, more correct, and easier on the eyes.
 One of the simplest things we as programmers do is pass around data. The
 traditional way to do this is to define a JavaBean:
 
-    :::java
-    public class DataHolder {
-        private String data;
+```java
+public class DataHolder {
+    private String data;
 
-        public DataHolder() {
-        }
-
-        public void setData(String data) {
-            this.data = data;
-        }
-
-        public String getData() {
-            return this.data;
-        }
+    public DataHolder() {
     }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getData() {
+        return this.data;
+    }
+}
+```
 
 This is verbose and wasteful. Even if your IDE automatically generated this
 code, it's a waste. So, [don't do this][dontbean].
 
 Instead, I prefer the C struct style of writing classes that merely hold data:
 
-    :::java
-    public class DataHolder {
-        public final String data;
+```java
+public class DataHolder {
+    public final String data;
 
-        public DataHolder(String data) {
-            this.data = data;
-        }
+    public DataHolder(String data) {
+        this.data = data;
     }
+}
+```
 
 This is a reduction in number of lines of code by a half. Further, this class
 is immutable unless you extend it, so we can reason about it easier as we know
@@ -66,7 +68,7 @@ object.
 Imagine we had a more complicated *DataHolder*. The builder for it might look
 like:
 
-    :::java
+    ```java
     public class ComplicatedDataHolder {
         public final String data;
         public final int num;
@@ -91,14 +93,16 @@ like:
             }  
         }
     }
+    ```
 
 Then to use it:
 
-    :::java
+    ```java
     final ComplicatedDataHolder cdh = new ComplicatedDataHolder.Builder()
         .data("set this")
         .num(523)
         .build();
+    ```
 
 There are [better examples of Builders elsewhere][builderex] but this should
 give you a taste for what it's like. This ends up with a lot of the boilerplate
@@ -134,7 +138,7 @@ If you're using [Java 8][java8], you can use the excellent new
 [Optional][optional] type. If a value may or may not be present, wrap it in
 an *Optional* class like this:
 
-    :::java
+    ```java
     public class FooWidget {
         private final String data;
         private final Optional<Bar> bar;
@@ -152,17 +156,19 @@ an *Optional* class like this:
             return bar;
         }
     }
+    ```
 
 So now it's clear that *data* will never be null, but *bar* may or may not be
 present. *Optional* has methods like *isPresent*, which may make it feel like
 not a lot is different from just checking *null*. But it allows you to write
 statements like:
 
-    :::java
+    ```java
     final Optional<FooWidget> fooWidget = maybeGetFooWidget();
     final Baz baz = fooWidget.flatMap(FooWidget::getBar)
                              .flatMap(BarWidget::getBaz)
                              .orElse(defaultBaz);
+    ```
 
 Which is much better than chained if null checks. The only downside of using
 Optional is that the standard library doesn't have good Optional support, so
@@ -175,7 +181,7 @@ collections should be immutable.
 
 Variable references can be made immutable with *final*:
 
-    :::java
+    ```java
     final FooWidget fooWidget;
     if (condition()) {
         fooWidget = getWidget();
@@ -188,6 +194,7 @@ Variable references can be made immutable with *final*:
         }
     }
     // fooWidget is guaranteed to be set here
+    ```
 
 Now you can be sure that fooWidget won't be accidentally reassigned. The *final*
 keyword works with if/else blocks and with try/catch blocks. Of course, if the
@@ -206,7 +213,7 @@ and by using immutable collections. Optionally, you can make the class itself
 
 Be careful if you find yourself adding a lot of methods to a Util class.
 
-    :::java
+    ```java
     public class MiscUtil {
         public static String frobnicateString(String base, int times) {
             // ... etc
@@ -216,6 +223,7 @@ Be careful if you find yourself adding a lot of methods to a Util class.
             // ... etc
         }
     }
+    ```
 
 These classes, at first, seem attractive because the methods that go in them
 don't really belong in any one place. So you throw them all in here in the
@@ -226,7 +234,7 @@ if you must have common methods like this, consider [Java 8][java8]'s default
 methods on interfaces. Then you could lump common actions into interfaces. 
 And, since they're interfaces, you can implement multiple of them.
 
-    :::java
+    ```java
     public interface Thrower {
         default void throwIfCondition(boolean condition, String msg) {
             // ...
@@ -236,6 +244,7 @@ And, since they're interfaces, you can implement multiple of them.
             // ...
         }
     }
+    ```
 
 Then every class which needs it can simply implement this interface.
 
@@ -266,21 +275,23 @@ all, as it tricks your users into thinking that there is documentation.
 [Java 8][java8] has a nice [stream][javastream] and lambda syntax. You could
 write code like this:
 
-    :::java
+    ```java
     final List<String> filtered = list.stream()
         .filter(s -> s.startsWith("s"))
         .map(s -> s.toUpperCase())
         .collect(Collectors.toList());
+    ```
 
 Instead of this:
 
-    :::java
+    ```java
     final List<String> filtered = new ArrayList<>();
     for (String str : list) {
         if (str.startsWith("s") {
             filtered.add(str.toUpperCase());
         }
     }
+    ```
 
 This allows you to write more fluent code, which is more readable.
 
@@ -330,13 +341,14 @@ information.  This way, you get your company's selected version of each
 external dependency, and all of the correct Maven plugins. If you need to pull
 in external dependencies, it works just like this:
 
-    :::xml
+    ```xml
     <dependencies>
         <dependency>
             <groupId>org.third.party</groupId>
             <artifactId>some-artifact</artifactId>
         </dependency>
     </dependencies>
+    ```
 
 If you want internal dependencies, that should be managed by each individual
 project's **<dependencyManagement>** section. Otherwise it would be difficult
@@ -448,12 +460,13 @@ cache and you're all set!
 
 I also like writing mutable collections the Guava way:
 
-    :::java
+    ```java
     // Instead of
     final Map<String, Widget> map = new HashMap<>();
     
     // You can use
     final Map<String, Widget> map = Maps.newHashMap();
+    ```
 
 There are static classes for [Lists][lists], [Maps][maps], [Sets][sets] and
 more. They're cleaner and easier to read.
@@ -471,11 +484,12 @@ separators and a [class to handle interrupts][uninterrupt] by ignoring them.
 Google's [Gson][gson] library is a simple and fast JSON parsing library. It
 works like this:
 
-    :::java
+    ```java
     final Gson gson = new Gson();
     final String json = gson.toJson(fooWidget);
     
     final FooWidget newFooWidget = gson.fromJson(json, FooWidget.class);
+    ```
 
 It's really easy and a pleasure to work with. The [Gson user guide][gsonguide]
 has many more examples.
@@ -488,11 +502,12 @@ that.
 
 It's simple to use and works great:
 
-    :::java
+    ```java
     Pair<String, Integer> func(String input) {
         // something...
         return Pair.with(stringResult, intResult);
     }
+    ```
 
 ### Joda-Time
 
@@ -509,16 +524,18 @@ to reduce the boilerplate that Java suffers from so badly.
 
 Want setters and getters for your class variables? Simple:
 
-    :::java
+    ```java
     public class Foo {
         @Getter @Setter private int var;
     }
+    ```
 
 Now you can do this:
 
-    :::java
+    ```java
     final Foo foo = new Foo();
     foo.setVar(5);
+    ```
 
 And there's [so much more][lombokguide]. I haven't used Lombok in production
 yet, but I can't wait to.
@@ -564,7 +581,7 @@ much better solution.
 
 It lets you write SQL in Java in a type safe way:
 
-    :::java
+    ```java
     // Typesafely execute the SQL statement directly with jOOQ
     Result<Record3<String, String, String>> result = 
     create.select(BOOK.TITLE, AUTHOR.FIRST_NAME, AUTHOR.LAST_NAME)
@@ -573,6 +590,7 @@ It lets you write SQL in Java in a type safe way:
         .on(BOOK.AUTHOR_ID.equal(AUTHOR.ID))
         .where(BOOK.PUBLISHED_IN.equal(1948))
         .fetch();
+    ```
 
 Using this and the [DAO][dao] pattern, you can make database access a breeze.
 
@@ -598,7 +616,7 @@ asserting behavior of code that calls it.
 
 [jMock][jmock] is the standard mocking tool for Java. It looks like this:
 
-    :::java
+    ```java
     public class FooWidgetTest {
         private Mockery context = new Mockery();
 
@@ -617,6 +635,7 @@ asserting behavior of code that calls it.
             context.assertIsSatisfied();
         }
     }
+    ```
 
 This sets up a *FooWidgetDependency* via jMock and then adds expectations. We
 expect that *dep*'s *call* method will be called once with some String and that
@@ -630,20 +649,22 @@ put that in a [test fixture][junitfixture] and put *assertIsSatisfied* in an
 
 Do you ever do this with jUnit?
 
-    :::java
+    ```java
     final List<String> result = some.testMethod();
     assertEquals(4, result.size());
     assertTrue(result.contains("some result"));
     assertTrue(result.contains("some other result"));
     assertFalse(result.contains("shouldn't be here"));
+    ```
 
 This is just annoying boilerplate. [AssertJ][assertj] solves this. You can
 transform the same code into this:
 
-    :::java
+    ```java
     assertThat(some.testMethod()).hasSize(4)
                                  .contains("some result", "some other result")
                                  .doesNotContain("shouldn't be here");
+    ```
 
 This fluent interface makes your tests more readable. What more could you want?
 
@@ -703,7 +724,7 @@ heap dump and lets you find the problem.
 There's a few ways to get a heap dump for a JVM process, but I use
 [jmap][jmap]:
 
-    :::bash
+    ```bash
     $ jmap -dump:live,format=b,file=heapdump.hprof -F 8152
     Attaching to process ID 8152, please wait...
     Debugger attached successfully.
@@ -712,6 +733,7 @@ There's a few ways to get a heap dump for a JVM process, but I use
     Dumping heap to heapdump.hprof ...
     ... snip ...
     Heap dump file created
+    ```
 
 Then you can open the *heapdump.hprof* file with the Memory Analyzer and see
 what's going on fast.
