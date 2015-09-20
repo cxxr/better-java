@@ -112,6 +112,19 @@ give you a taste for what it's like. This ends up with a lot of the boilerplate
 we were trying to avoid, but it gets you immutable objects and a very fluent
 interface.
 
+## Exceptions
+
+[Checked exceptions][checkedex] should be used with caution, if at all. They 
+force your users to add many try/catch blocks and wrap your exceptions in their 
+own. Better is to make your exceptions extend RuntimeException instead. This 
+allows your users to handle your exceptions in the way they would like, rather 
+than forcing them to handle/declare that it throws every time, which pollutes 
+the code.
+
+One nitfy trick is to put RuntimeExceptions in your method's throws declaration.
+This has no effect on the compiler, but will inform your users via documentation
+that these exceptions can be thrown.
+
 ## Dependency injection
 
 This is more of a software engineering section than a Java section, but one of
@@ -839,3 +852,4 @@ Resources to help you become a Java master.
 [jaxrs]: http://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services
 [playdoc]: http://www.playframework.com/documentation/2.3.x/Anatomy
 [java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
+[checkedex]: http://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html
