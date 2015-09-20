@@ -147,9 +147,9 @@ public class FooWidget {
         this(data, Optional.empty());
     }
 
-    public FooWidget(String data, Optional<Bar> bar) {
+    public FooWidget(String data, Bar bar) {
         this.data = data;
-        this.bar = bar;
+        this.bar = Optional.ofNullable(bar);
     }
 
     public Optional<Bar> getBar() {
@@ -836,6 +836,3 @@ Resources to help you become a Java master.
 [jaxrs]: http://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services
 [playdoc]: http://www.playframework.com/documentation/2.3.x/Anatomy
 [java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
-
-
-
