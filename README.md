@@ -759,7 +759,7 @@ Resources to help you become a Java master.
 [copydir]: http://commons.apache.org/proper/commons-io/javadocs/api-release/org/apache/commons/io/FileUtils.html#copyDirectory(java.io.File,%20java.io.File)
 [writestring]: http://commons.apache.org/proper/commons-io/javadocs/api-release/org/apache/commons/io/FileUtils.html#writeStringToFile(java.io.File,%20java.lang.String)
 [readlines]: http://commons.apache.org/proper/commons-io/javadocs/api-release/org/apache/commons/io/IOUtils.html#readLines(java.io.InputStream)
-[guava]: http://code.google.com/p/guava-libraries/
+[guava]: https://github.com/google/guava
 [cachebuilder]: http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/cache/CacheBuilder.html
 [immutablesorted]: http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/ImmutableSortedMultiset.html
 [uninterrupt]: http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/util/concurrent/Uninterruptibles.html
@@ -836,6 +836,3 @@ Resources to help you become a Java master.
 [jaxrs]: http://en.wikipedia.org/wiki/Java_API_for_RESTful_Web_Services
 [playdoc]: http://www.playframework.com/documentation/2.3.x/Anatomy
 [java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
-
-
-
