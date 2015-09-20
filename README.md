@@ -842,7 +842,7 @@ Resources to help you become a Java master.
 [taint]: http://en.wikipedia.org/wiki/Taint_checking
 [checker]: http://types.cs.washington.edu/checker-framework/
 [customchecker]: http://types.cs.washington.edu/checker-framework/tutorial/webpages/encryption-checker-cmd.html
-[builderex]: http://jlordiales.wordpress.com/2012/12/13/the-builder-pattern-in-practice/
+[builderex]: http://jlordiales.me/2012/12/13/the-builder-pattern-in-practice/
 [javadocex]: http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/ImmutableMap.Builder.html
 [dropwizard]: https://dropwizard.github.io/dropwizard/
 [jersey]: https://jersey.java.net/
