@@ -515,7 +515,7 @@ Pair<String, Integer> func(String input) {
 straightforward, easy to test. What else can you ask for? 
 
 You only need this if you're not yet on Java 8, as that has its own new 
-[date time][java8datetime] library that doesn't suck.
+[time][java8datetime] library that doesn't suck.
 
 ### Lombok
 
