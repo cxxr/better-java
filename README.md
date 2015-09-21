@@ -7,7 +7,7 @@ trying to use all of them at once. Feel free to submit pull requests
 suggesting additions.
 
 This article was originally posted on 
-[my blog](https://blog.seancassidy.me/better-java.html).
+[my blog](https://www.seancassidy.me/better-java.html).
 
 # Style
 
