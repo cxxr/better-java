@@ -150,6 +150,8 @@ should have instead returned an empty collection. If you're going to use null,
 consider the [@Nullable][nullable] annotation. [IntelliJ IDEA][intellij] has 
 built-in support for the @Nullable annotation.
 
+Very good description of why not to use nulls is here: https://www.lucidchart.com/techblog/2015/08/31/the-worst-mistake-of-computer-science/
+
 If you're using [Java 8][java8], you can use the excellent new 
 [Optional][optional] type. If a value may or may not be present, wrap it in
 an *Optional* class like this:
