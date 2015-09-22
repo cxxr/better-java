@@ -618,7 +618,7 @@ Java has a collection framework which is used to implement complex data structur
 ### Interfaces 
  Interfaces are a binding contract which consists of abstract methods and fields that must be implemented by any class that extends the interface.
 
- [java.util.Collection][collections] is the root interface.  It represents a group of Objects. More specific collection  interfaces such as List extend this interface.  
+ [java.util.Collection][collection] is the root interface.  It represents a group of Objects. More specific collection  interfaces such as List extend this interface.  
  
  The [java.util.List][lists] interface helps to manage an ordered collection of objects, where it can control where each   element is inserted, how to access elements based on the index, search for elements in the list, and insert duplicate values.  The two most commonly used Lists which implement this interface are: [java.util.ArrayList][arraylist] and [java.util.LinkedList][linkedlist].
  
