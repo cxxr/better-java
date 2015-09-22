@@ -620,7 +620,12 @@ Java has a collection framework which is used to implement complex data structur
 
  [java.util.Collection][collections] is the root interface.  It represents a group of Objects. More specific collection  interfaces such as List extend this interface.  
  
- The [java.util.List][lists] interface extends from the Collection interface. The List interface helps to manage an ordered collection of objects, where it can control where each element is inserted, how to access elements based on the index, search for elements in the list, and insert duplicate values.  Use the List itnerface when the collection of objects is being dynamically resized. The two most commonly used Lists which implement this interface are: [java.util.ArrayList][arraylist] and [java.util.LinkedList][linkedlist].  An ArrayList is used when the list becomes fairly static after the information is inserted.  A LinkedList is used when there are frequent insertions or deletions.
+ The [java.util.List][lists] interface helps to manage an ordered collection of objects, where it can control where each   element is inserted, how to access elements based on the index, search for elements in the list, and insert duplicate values.  The two most commonly used Lists which implement this interface are: [java.util.ArrayList][arraylist] and [java.util.LinkedList][linkedlist].
+ 
+ The [java.util.Set][set] is used to manage a collection of objects which contain no duplicates.  The [java.util.SortedSet][sortedset] interface is used if the elements are automatically order. The classes implementing the Set interface are: 
+   1. [java.util.HashSet][hashset] - Hash table implementation of the Set interface
+   2. [java.util.LinkedHashSet][linkedhashset] - Hash table and linked list implementation of the Set interface
+   3. [java.util.TreeSet][treeset]: A red-black tree implementation of the SortedSet interface
  
  
 
@@ -871,3 +876,8 @@ Resources to help you become a Java master.
 [list]: https://docs.oracle.com/javase/6/docs/api/java/util/List.html
 [arraylist]: http://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
 [linkedlist]: http://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html
+[set]: http://docs.oracle.com/javase/7/docs/api/java/util/Set.html
+[sortedset]: http://docs.oracle.com/javase/7/docs/api/java/util/SortedSet.html
+[hashset]: http://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html
+[linkedhashset]: http://docs.oracle.com/javase/7/docs/api/java/util/LinkedHashSet.html
+[treeset]: http://docs.oracle.com/javase/7/docs/api/java/util/TreeSet.html
