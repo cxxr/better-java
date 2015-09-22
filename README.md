@@ -64,7 +64,7 @@ section about immutability.
 If you have a rather complicated object that you want to build a struct for,
 consider the Builder pattern.
 
-You make a subclass in your object which will construct your object. It uses
+You make a static inner class which will construct your object. It uses
 mutable state, but as soon as you call build, it will emit an immutable
 object.
 
