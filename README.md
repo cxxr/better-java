@@ -615,7 +615,7 @@ Using this and the [DAO][dao] pattern, you can make database access a breeze.
 Java has a collection framework which is used to implement complex data structures.  This framework helps to: reduce programming effort, increases performance, its part of the core API which means it is available and easy to learn, promotes software reuse, and the APIs are easy to design based on the generic collections.  It consists of collection interfaces, general-purpose implementations, special-purpose implementations, concurrent implementations, wrapper implementations, abstract implementations, algorithms, infrastructure, and array utilities.
 
 
- ### Interfaces 
+### Interfaces 
  Interfaces are a binding contract which consists of abstract methods and fields that must be implemented by any class that extends the interface.
 
  [java.util.Collection][collections] is the root interface.  It represents a group of Objects. More specific collection  interfaces such as List extend this interface.  
