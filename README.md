@@ -195,7 +195,7 @@ dealing with nulls is still required there.
 Unless you have a good reason to make them otherwise, variables, classes, and
 collections should be immutable.
 
-Variable references can be made immutable with *final*:
+Variables can be made immutable with *final*:
 
 ```java
 final FooWidget fooWidget;
