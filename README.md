@@ -802,8 +802,8 @@ Resources to help you become a Java master.
 [puppet]: http://puppetlabs.com/
 [ansible]: http://www.ansible.com/home
 [squadron]: http://www.gosquadron.com
-[googlestyle]: http://google-styleguide.googlecode.com/svn/trunk/javaguide.html
-[googlepractices]: http://google-styleguide.googlecode.com/svn/trunk/javaguide.html#s6-programming-practices
+[googlestyle]: http://google.github.io/styleguide/javaguide.html
+[googlepractices]: http://google.github.io/styleguide/javaguide.html#s6-programming-practices
 [di]: http://en.wikipedia.org/wiki/Dependency_injection
 [spring]: http://projects.spring.io/spring-framework/
 [springso]: http://programmers.stackexchange.com/questions/92393/what-does-the-spring-framework-do-should-i-use-it-why-or-why-not
