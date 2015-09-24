@@ -121,7 +121,7 @@ allows your users to handle your exceptions in the way they would like, rather
 than forcing them to handle/declare that it throws every time, which pollutes 
 the code.
 
-One nitfy trick is to put RuntimeExceptions in your method's throws declaration.
+One nifty trick is to put RuntimeExceptions in your method's throws declaration.
 This has no effect on the compiler, but will inform your users via documentation
 that these exceptions can be thrown.
 
