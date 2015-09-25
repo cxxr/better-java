@@ -311,6 +311,17 @@ for (String str : list) {
 
 This allows you to write more fluent code, which is more readable.
 
+# Code Quality
+
+Even when following best practices, even the best developer will make mistakes. There are a number of tools out there that you can use to validate your Java code to detect problems in your code. Below is a small selection of some of the most popular tools. Many of these integrate with popular IDE's such as Eclipse or IntelliJ enabling you to spot mistakes in your code sooner.
+
+* **[Checkstyle](http://checkstyle.sourceforge.net/ "Checkstyle")**: A static code analyser whose primary focus is to ensure that your code adheres to a coding standard. Rules are definied in an XML file that can be checked into source control alongside your code.
+* **[FindBugs](http://findbugs.sourceforge.net/ "FindBugs")**: Aims to spot code that can result in bugs/errors. Runs as a standalone process but has good integration into modern IDE's and build tools.  
+* **[PMD](https://pmd.github.io/ "PMD")**: Similar to FindBugs, PMD aims to spot common mistakes & possible tidy-ups in your code. What rules are run against your code can be controlled via an XML file you can commit alongside your code. 
+* **[SonarQube](http://www.sonarqube.org/ "SonarQube")**: Unlike the previous tools that run locally, SonarQube runs on a server that you submit your code to for analysis. It provides a web GUI where you are able to gain a wealth of information about your code such as bad practices, potential bugs, percentage test coverage and the level of [technical debt](https://en.wikipedia.org/wiki/Technical_debt "Technical Debt on Wikipedia") in your code. 
+
+As well as using these tools during development, it's often a good idea to also have them run during your build stages. They can be tied into build tools such as Maven or Gradle & also into continuous integration tools.
+
 # Deploying
 
 Deploying Java properly can be a bit tricky. There are two main ways to deploy
