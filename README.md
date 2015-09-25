@@ -112,6 +112,19 @@ give you a taste for what it's like. This ends up with a lot of the boilerplate
 we were trying to avoid, but it gets you immutable objects and a very fluent
 interface.
 
+### Immutable Objects Generation
+
+If you create many immutable objects by hand, consider using the annotation 
+processor to generate them from interfaces automatically. This minimizes 
+boilerplate code, reduces probability of bugs and promotes immutability.
+
+Two best available code generation libraries are [immutables]
+(https://github.com/immutables/immutables) and Google's 
+[auto-value](https://github.com/google/auto/tree/master/value).
+
+See this [presentation](https://docs.google.com/presentation/d/14u_h-lMn7f1rXE1nDiLX0azS3IkgjGl5uxp5jGJ75RE/edit#slide=id.g2a5e9c4a8_00) 
+about the problem of creating immutable objects.
+
 ## Exceptions
 
 [Checked exceptions][checkedex] should be used with caution, if at all. They 
