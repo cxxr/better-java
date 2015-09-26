@@ -791,6 +791,9 @@ Resources to help you become a Java master.
 
 * [The Java Posse](http://www.javaposse.com/)
 
+## Videos
+
+* [Effective Java - Still Effective After All These Years](https://www.youtube.com/watch?v=V1vQf4qyMXg)
 
 [immutablemap]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableMap.html
 [immutablelist]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableList.html
