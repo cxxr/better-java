@@ -623,6 +623,25 @@ create.select(BOOK.TITLE, AUTHOR.FIRST_NAME, AUTHOR.LAST_NAME)
 
 Using this and the [DAO][dao] pattern, you can make database access a breeze.
 
+## Collections and Generics
+
+Java has a collection framework which is used to implement complex data structures.  This framework helps to: reduce programming effort, increases performance, its part of the core API which means it is available and easy to learn, promotes software reuse, and the APIs are easy to design based on the generic collections.  It consists of collection interfaces, general-purpose implementations, special-purpose implementations, concurrent implementations, wrapper implementations, abstract implementations, algorithms, infrastructure, and array utilities.
+
+
+### Interfaces 
+ Interfaces are a binding contract which consists of abstract methods and fields that must be implemented by any class that extends the interface.
+
+ [java.util.Collection][collection] is the root interface.  It represents a group of Objects. More specific collection  interfaces such as List extend this interface.  
+ 
+ The [java.util.List][lists] interface helps to manage an ordered collection of objects, where it can control where each   element is inserted, how to access elements based on the index, search for elements in the list, and insert duplicate values.  The two most commonly used Lists which implement this interface are: [java.util.ArrayList][arraylist] and [java.util.LinkedList][linkedlist].
+ 
+ The [java.util.Set][set] is used to manage a collection of objects which contain no duplicates.  The [java.util.SortedSet][sortedset] interface is used if the elements are automatically order. The classes implementing the Set interface are: 
+   1. [java.util.HashSet][hashset] - Hash table implementation of the Set interface
+   2. [java.util.LinkedHashSet][linkedhashset] - Hash table and linked list implementation of the Set interface
+   3. [java.util.TreeSet][treeset]: A red-black tree implementation of the SortedSet interface
+ 
+ 
+
 ## Testing
 
 Testing is critical to your software. These packages help make it easier.
@@ -881,3 +900,12 @@ Resources to help you become a Java master.
 [playdoc]: http://www.playframework.com/documentation/2.3.x/Anatomy
 [java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
 [checkedex]: http://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html
+[collection]: https://docs.oracle.com/javase/6/docs/api/java/util/Collection.html
+[list]: https://docs.oracle.com/javase/6/docs/api/java/util/List.html
+[arraylist]: http://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
+[linkedlist]: http://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html
+[set]: http://docs.oracle.com/javase/7/docs/api/java/util/Set.html
+[sortedset]: http://docs.oracle.com/javase/7/docs/api/java/util/SortedSet.html
+[hashset]: http://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html
+[linkedhashset]: http://docs.oracle.com/javase/7/docs/api/java/util/LinkedHashSet.html
+[treeset]: http://docs.oracle.com/javase/7/docs/api/java/util/TreeSet.html
