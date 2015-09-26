@@ -112,20 +112,23 @@ final ComplicatedDataHolder cdh = new ComplicatedDataHolder.Builder()
 There are [better examples of Builders elsewhere][builderex] but this should
 give you a taste for what it's like. This ends up with a lot of the boilerplate
 we were trying to avoid, but it gets you immutable objects and a very fluent
-interface.
+interface. 
 
-#### Immutable Objects Generation
+Instead of creating builder objects by hand, consider using one of the many 
+libraries which can help you generate builders.
+
+#### Immutable Object Generation
 
 If you create many immutable objects by hand, consider using the annotation 
 processor to generate them from interfaces automatically. This minimizes 
 boilerplate code, reduces probability of bugs and promotes immutability.
+See this [presentation](https://docs.google.com/presentation/d/14u_h-lMn7f1rXE1nDiLX0azS3IkgjGl5uxp5jGJ75RE/edit#slide=id.g2a5e9c4a8_00) for an interesting discussion of some of the problems
+with normal Java coding patterns.
 
-Two best available code generation libraries are [immutables]
-(https://github.com/immutables/immutables) and Google's 
-[auto-value](https://github.com/google/auto/tree/master/value).
-
-See this [presentation](https://docs.google.com/presentation/d/14u_h-lMn7f1rXE1nDiLX0azS3IkgjGl5uxp5jGJ75RE/edit#slide=id.g2a5e9c4a8_00) 
-about the problem of creating immutable objects.
+Some great code generation libraries are [immutables]
+(https://github.com/immutables/immutables), Google's 
+[auto-value](https://github.com/google/auto/tree/master/value) and 
+[Lombok][lombok].
 
 ### Exceptions
 
