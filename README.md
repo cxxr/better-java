@@ -727,6 +727,8 @@ intricate bugs, Heisenbugs and the like.
 
 ### JRebel
 
+**Good alternative**: [DCEVM](https://github.com/dcevm/dcevm)
+
 Continuous integration is often a goal of software-as-a-service products. What
 if you didn't even need to wait for the build to finish to see code changes
 live?
