@@ -260,24 +260,10 @@ These classes, at first, seem attractive because the methods that go in them
 don't really belong in any one place. So you throw them all in here in the
 name of code reuse.
 
-The cure is worse than the disease. Put these classes where they belong, or 
-if you must have common methods like this, consider [Java 8][java8]'s default
-methods on interfaces. Then you could lump common actions into interfaces. 
-And, since they're interfaces, you can implement multiple of them.
-
-```java
-public interface Thrower {
-    default void throwIfCondition(boolean condition, String msg) {
-        // ...
-    }
-
-    default void throwAorB(Throwable a, Throwable b, boolean throwA) {
-        // ...
-    }
-}
-```
-
-Then every class which needs it can simply implement this interface.
+The cure is worse than the disease. Put these classes where they belong and
+refactor aggressively. Don't name classes, packages, or libraries anything
+too generic, such as "MiscUtils" or "ExtrasLibrary". This encourages dumping 
+unrelated code there.
 
 ### Formatting
 
