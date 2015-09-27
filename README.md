@@ -168,6 +168,8 @@ should have instead returned an empty collection. If you're going to use null,
 consider the [@Nullable][nullable] annotation. [IntelliJ IDEA][intellij] has 
 built-in support for the @Nullable annotation.
 
+Read more about why not to use nulls in [The worst mistake of computer science][the-worst-mistake-of-computer-science].
+
 If you're using [Java 8][java8], you can use the excellent new 
 [Optional][optional] type. If a value may or may not be present, wrap it in
 an *Optional* class like this:
@@ -876,3 +878,4 @@ Resources to help you become a Java master.
 [playdoc]: http://www.playframework.com/documentation/2.3.x/Anatomy
 [java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
 [checkedex]: http://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html
+[the-worst-mistake-of-computer-science]: https://www.lucidchart.com/techblog/2015/08/31/the-worst-mistake-of-computer-science/
