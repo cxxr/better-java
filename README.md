@@ -531,6 +531,29 @@ Pair<String, Integer> func(String input) {
 }
 ```
 
+#### Javaslang
+
+I really love Scala's immutable collections, elegant exception handling and lazy evaluation. So I created [Javaslang](http://javaslang.com) and brought these and much more (Functions, Tuples, ...) to Java 8.
+
+Code like this is automatically thread safe and try-catch free:
+
+```java
+// Success/Failure containing the result/exception
+public static Try<User> getUser(int userId) {
+    return Try.of(() -> DB.findUser(userId))
+        .recover(x -> Match.of(x)
+            .whenType(RemoteException.class).then(e -> ...)
+            .whenType(SQLException.class).then(e -> ...));
+}
+
+// Thread-safe, reusable collections
+public static List<String> sayByeBye() {
+    return List.of("bye, "bye", "collect", "mania")
+               .map(String::toUpperCase)
+               .intersperse(" ");
+}
+```
+
 #### Joda-Time
 
 [Joda-Time][joda] is easily the best time library I've ever used. Simple,
