@@ -840,6 +840,7 @@ Resources to help you become a Java master.
 * [Les Cast Codeurs](https://lescastcodeurs.com/) (*French*)
 * [Java Pub House](http://www.javapubhouse.com/)
 * [Java Off Heap](http://www.javaoffheap.com/)
+* [Enterprise Java Newscast](http://www.enterprisejavanews.com)
 
 ### Videos
 
