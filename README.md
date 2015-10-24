@@ -844,6 +844,8 @@ Resources to help you become a Java master.
 ### Videos
 
 * [Effective Java - Still Effective After All These Years](https://www.youtube.com/watch?v=V1vQf4qyMXg)
+* [InfoQ](http://www.infoq.com/) - see especially [presentations](http://www.infoq.com/java/presentations/) and [interviews](http://www.infoq.com/java/interviews/)
+* [Parleys](https://www.parleys.com/)
 
 [immutablemap]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableMap.html
 [immutablelist]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableList.html
