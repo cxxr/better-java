@@ -38,6 +38,7 @@ This article was originally posted on
     * [Guava](#guava)
     * [Gson](#gson)
     * [Java Tuples](#java-tuples)
+    * [Javaslang](#javaslang)
     * [Joda-Time](#joda-time)
     * [Lombok](#lombok)
     * [Play framework](#play-framework)
@@ -581,7 +582,17 @@ Pair<String, Integer> func(String input) {
 
 #### Javaslang
 
-I really love Scala's immutable collections, elegant exception handling and lazy evaluation. So I created [Javaslang](http://javaslang.com) and brought these and much more (Functions, Tuples, ...) to Java 8.
+[Javaslang][javaslang] is a functional component library, designed to add missing features that should have been part of Java 8. Some of these features are
+
+* an all-new functional collection library
+* tightly integrated tuples
+* pattern matching
+* throughout thread-safe because of immutability
+* eager and lazy data types
+* null-safety with the help of Option
+* better exception handling with the help of Try
+
+Existing Java libraries like Guava can be seen as extensions of the old-school Java collections. These libraries cannot evolve over time because they are bound to the never changing Java 1.x API. The Javaslang collections for Java are a completely new take and inspired by Haskell, Clojure and Scala. They are designed for modern architectures with scalability and thread-safety in mind.
 
 Code like this is automatically thread safe and try-catch free:
 
@@ -910,6 +921,7 @@ Resources to help you become a Java master.
 [spring]: http://projects.spring.io/spring-framework/
 [springso]: http://programmers.stackexchange.com/questions/92393/what-does-the-spring-framework-do-should-i-use-it-why-or-why-not
 [java8]: http://www.java8.org/
+[javaslang]: http://javaslang.com/
 [javastream]: http://blog.hartveld.com/2013/03/jdk-8-33-stream-api.html
 [slf4j]: http://www.slf4j.org/
 [slf4jmanual]: http://www.slf4j.org/manual.html
