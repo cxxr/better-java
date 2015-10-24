@@ -622,6 +622,8 @@ Testing is critical to your software. These packages help make it easier.
 
 #### jUnit 4
 
+**Good alternative**: [TestNG][testng].
+
 [jUnit][junit] needs no introduction. It's the standard tool for unit testing
 in Java.
 
@@ -837,6 +839,7 @@ Resources to help you become a Java master.
 [slf4j]: http://www.slf4j.org/
 [slf4jmanual]: http://www.slf4j.org/manual.html
 [junit]: http://junit.org/
+[testng]: http://testng.org
 [junitparam]: https://github.com/junit-team/junit/wiki/Parameterized-tests
 [junitrules]: https://github.com/junit-team/junit/wiki/Rules
 [junittheories]: https://github.com/junit-team/junit/wiki/Theories
