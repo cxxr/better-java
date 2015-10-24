@@ -11,6 +11,54 @@ suggesting additions.
 This article was originally posted on 
 [my blog](https://www.seancassidy.me/better-java.html).
 
+## Table Of Contents
+
+* [Style](#style)
+  * [Structs](#structs)
+    * [The Builder Pattern](#the-builder-pattern)
+    * [Immutable Object Generation](#immutable-object-generation)
+  * [Exceptions](#exceptions)
+  * [Dependency injection](#dependency-injection)
+  * [Avoid Nulls](#avoid-nulls)
+  * [Immutable-by-default](#immutable-by-default)
+  * [Avoid lots of Util classes](#avoid-lots-of-util-classes)
+  * [Formatting](#formatting)
+    * [Javadoc](#javadoc)
+  * [Streams](#streams)
+* [Deploying](#deploying)
+  * [Frameworks](#frameworks)
+  * [Maven](#maven)
+    * [Dependency Convergence](#dependency-convergence)
+  * [Continuous Integration](#continuous-integration)
+  * [Maven repository](#maven-repository)
+  * [Configuration management](#configuration-management)
+* [Libraries](#libraries)
+  * [Missing Features](#missing-features)
+    * [Apache Commons](#apache-commons)
+    * [Guava](#guava)
+    * [Gson](#gson)
+    * [Java Tuples](#java-tuples)
+    * [Joda-Time](#joda-time)
+    * [Lombok](#lombok)
+    * [Play framework](#play-framework)
+    * [SLF4J](#slf4j)
+    * [jOOQ](#jooq)
+  * [Testing](#testing)
+    * [jUnit 4](#junit-4)
+    * [jMock](#jmock)
+    * [AssertJ](#assertj)
+* [Tools](#tools)
+  * [IntelliJ IDEA](#intellij-idea)
+    * [Chronon](#chronon)
+  * [JRebel](#jrebel)
+  * [The Checker Framework](#the-checker-framework)
+  * [Code Quality](#code-quality)
+  * [Eclipse Memory Analyzer](#eclipse-memory-analyzer)
+* [Resources](#resources)
+  * [Books](#books)
+  * [Podcasts](#podcasts)
+  * [Videos](#videos)
+
 ## Style
 
 Traditionally, Java was programmed in a very verbose enterprise JavaBean style.
@@ -645,6 +693,8 @@ Testing is critical to your software. These packages help make it easier.
 
 #### jUnit 4
 
+**Good alternative**: [TestNG][testng].
+
 [jUnit][junit] needs no introduction. It's the standard tool for unit testing
 in Java.
 
@@ -811,10 +861,14 @@ Resources to help you become a Java master.
 * [The Java Posse](http://www.javaposse.com/) (*discontinued*)
 * [vJUG](http://virtualjug.com/)
 * [Les Cast Codeurs](https://lescastcodeurs.com/) (*French*)
+* [Java Pub House](http://www.javapubhouse.com/)
+* [Java Off Heap](http://www.javaoffheap.com/)
 
 ### Videos
 
 * [Effective Java - Still Effective After All These Years](https://www.youtube.com/watch?v=V1vQf4qyMXg)
+* [InfoQ](http://www.infoq.com/) - see especially [presentations](http://www.infoq.com/java/presentations/) and [interviews](http://www.infoq.com/java/interviews/)
+* [Parleys](https://www.parleys.com/)
 
 [immutablemap]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableMap.html
 [immutablelist]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableList.html
@@ -860,6 +914,7 @@ Resources to help you become a Java master.
 [slf4j]: http://www.slf4j.org/
 [slf4jmanual]: http://www.slf4j.org/manual.html
 [junit]: http://junit.org/
+[testng]: http://testng.org
 [junitparam]: https://github.com/junit-team/junit/wiki/Parameterized-tests
 [junitrules]: https://github.com/junit-team/junit/wiki/Rules
 [junittheories]: https://github.com/junit-team/junit/wiki/Theories
