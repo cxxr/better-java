@@ -582,12 +582,12 @@ Pair<String, Integer> func(String input) {
 
 #### Javaslang
 
-[Javaslang][javaslang] is a functional component library, designed to add missing features that should have been part of Java 8. Some of these features are
+[Javaslang][javaslang] is a functional library, designed to add missing features that should have been part of Java 8. Some of these features are
 
 * an all-new functional collection library
 * tightly integrated tuples
 * pattern matching
-* throughout thread-safe because of immutability
+* throughout thread-safety because of immutability
 * eager and lazy data types
 * null-safety with the help of Option
 * better exception handling with the help of Try
