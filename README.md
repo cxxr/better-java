@@ -592,7 +592,7 @@ Pair<String, Integer> func(String input) {
 * null-safety with the help of Option
 * better exception handling with the help of Try
 
-Existing Java libraries like Guava can be seen as extensions of the old-school Java collections. These libraries cannot evolve over time because they are bound to the never changing Java 1.x API. The Javaslang collections for Java are a completely new take and inspired by Haskell, Clojure and Scala. They are designed for modern architectures with scalability and thread-safety in mind.
+There are several Java libraries which depend on the original Java collections. These are restricted to stay compatible to classes which were created with an object-oriented focus and designed to be mutable. The Javaslang collections for Java are a completely new take, inspired by Haskell, Clojure and Scala. They are created with a functional focus and follow an immutable design.
 
 Code like this is automatically thread safe and try-catch free:
 
