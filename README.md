@@ -38,6 +38,7 @@ This article was originally posted on
     * [Guava](#guava)
     * [Gson](#gson)
     * [Java Tuples](#java-tuples)
+    * [Javaslang](#javaslang)
     * [Joda-Time](#joda-time)
     * [Lombok](#lombok)
     * [Play framework](#play-framework)
@@ -579,6 +580,39 @@ Pair<String, Integer> func(String input) {
 }
 ```
 
+#### Javaslang
+
+[Javaslang][javaslang] is a functional library, designed to add missing features that should have been part of Java 8. Some of these features are
+
+* an all-new functional collection library
+* tightly integrated tuples
+* pattern matching
+* throughout thread-safety because of immutability
+* eager and lazy data types
+* null-safety with the help of Option
+* better exception handling with the help of Try
+
+There are several Java libraries which depend on the original Java collections. These are restricted to stay compatible to classes which were created with an object-oriented focus and designed to be mutable. The Javaslang collections for Java are a completely new take, inspired by Haskell, Clojure and Scala. They are created with a functional focus and follow an immutable design.
+
+Code like this is automatically thread safe and try-catch free:
+
+```java
+// Success/Failure containing the result/exception
+public static Try<User> getUser(int userId) {
+    return Try.of(() -> DB.findUser(userId))
+        .recover(x -> Match.of(x)
+            .whenType(RemoteException.class).then(e -> ...)
+            .whenType(SQLException.class).then(e -> ...));
+}
+
+// Thread-safe, reusable collections
+public static List<String> sayByeBye() {
+    return List.of("bye, "bye", "collect", "mania")
+               .map(String::toUpperCase)
+               .intersperse(" ");
+}
+```
+
 #### Joda-Time
 
 [Joda-Time][joda] is easily the best time library I've ever used. Simple,
@@ -888,6 +922,7 @@ Resources to help you become a Java master.
 [spring]: http://projects.spring.io/spring-framework/
 [springso]: http://programmers.stackexchange.com/questions/92393/what-does-the-spring-framework-do-should-i-use-it-why-or-why-not
 [java8]: http://www.java8.org/
+[javaslang]: http://javaslang.com/
 [javastream]: http://blog.hartveld.com/2013/03/jdk-8-33-stream-api.html
 [slf4j]: http://www.slf4j.org/
 [slf4jmanual]: http://www.slf4j.org/manual.html
