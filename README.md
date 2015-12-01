@@ -714,42 +714,42 @@ But you're probably not using jUnit to its full potential. jUnit supports
 so much boilerplate, [theories][junittheories] to randomly test certain code,
 and [assumptions][junitassume].
 
-#### jMock
+#### EasyMock
 
 If you've done your dependency injection, this is where it pays off: mocking
 out code which has side effects (like talking to a REST server) and still
 asserting behavior of code that calls it.
 
-[jMock][jmock] is the standard mocking tool for Java. It looks like this:
+[EasyMock][easymock] is one of the most widespread mocking tools for Java.
+
+**Good alternatives**: [Mockito][mockito], [jMock][jmock]
+
+It looks like this:
 
 ```java
+import static org.easymock.EasyMock.*;
+
 public class FooWidgetTest {
-    private Mockery context = new Mockery();
 
     @Test
     public void basicTest() {
-        final FooWidgetDependency dep = context.mock(FooWidgetDependency.class);
-        
-        context.checking(new Expectations() {{
-            oneOf(dep).call(with(any(String.class)));
-            atLeast(0).of(dep).optionalCall();
-        }});
-
-        final FooWidget foo = new FooWidget(dep);
-
-        Assert.assertTrue(foo.doThing());
-        context.assertIsSatisfied();
+		FooWidgetDependency dep = createMock(FooWidgetDependency.class);
+		expect(dep.call(anyObject()));
+		expect(dep.optionalCall()).anyTimes();
+		
+		replay(dep);
+		FooWidget foo = new FooWidget(dep);
+		
+		Assert.assertTrue(foo.doThing());
+		verify(dep);
     }
 }
 ```
 
-This sets up a *FooWidgetDependency* via jMock and then adds expectations. We
-expect that *dep*'s *call* method will be called once with some String and that
+This sets up a *FooWidgetDependency* via EasyMock and then adds expectations. We
+expect that *dep*'s *call* method will be called once with some argument and that
 *dep*'s *optionalCall* method will be called zero or more times.
 
-If you have to set up the same dependency over and over, you should probably
-put that in a [test fixture][junitfixture] and put *assertIsSatisfied* in an
-*@After* fixture.
 
 #### AssertJ
 
@@ -970,3 +970,5 @@ Resources to help you become a Java master.
 [java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
 [checkedex]: http://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html
 [the-worst-mistake-of-computer-science]: https://www.lucidchart.com/techblog/2015/08/31/the-worst-mistake-of-computer-science/
+[easymock]: http://easymock.org/ 
+[mockito]: http://mockito.org/
