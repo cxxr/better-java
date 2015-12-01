@@ -46,7 +46,7 @@ This article was originally posted on
     * [jOOQ](#jooq)
   * [Testing](#testing)
     * [jUnit 4](#junit-4)
-    * [jMock](#jmock)
+    * [EasyMock](#easymock)
     * [AssertJ](#assertj)
 * [Tools](#tools)
   * [IntelliJ IDEA](#intellij-idea)
