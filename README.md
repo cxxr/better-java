@@ -932,7 +932,7 @@ Resources to help you become a Java master.
 [junitrules]: https://github.com/junit-team/junit/wiki/Rules
 [junittheories]: https://github.com/junit-team/junit/wiki/Theories
 [junitassume]: https://github.com/junit-team/junit/wiki/Assumptions-with-assume
-[jmock]: http://jmock.org/
+[jmock]: http://www.jmock.org/
 [junitfixture]: https://github.com/junit-team/junit/wiki/Test-fixtures
 [initializingbean]: http://docs.spring.io/spring/docs/3.2.6.RELEASE/javadoc-api/org/springframework/beans/factory/InitializingBean.html
 [apachecommons]: http://commons.apache.org/
