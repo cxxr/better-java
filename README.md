@@ -170,9 +170,10 @@ libraries which can help you generate builders.
 
 If you create many immutable objects by hand, consider using the annotation 
 processor to generate them from interfaces automatically. This minimizes 
-boilerplate code, reduces probability of bugs and promotes immutability.
-See this [presentation](https://docs.google.com/presentation/d/14u_h-lMn7f1rXE1nDiLX0azS3IkgjGl5uxp5jGJ75RE/edit#slide=id.g2a5e9c4a8_00) for an interesting discussion of some of the problems
-with normal Java coding patterns.
+boilerplate code, reduces probability of bugs and promotes immutability. See
+this [presentation](https://docs.google.com/presentation/d/14u_h-lMn7f1rXE1nDiLX0azS3IkgjGl5uxp5jGJ75RE/edit#slide=id.g2a5e9c4a8_00)
+for an interesting discussion of some of the problems with normal Java coding
+patterns.
 
 Some great code generation libraries are [immutables]
 (https://github.com/immutables/immutables), Google's 
@@ -217,7 +218,8 @@ should have instead returned an empty collection. If you're going to use null,
 consider the [@Nullable][nullable] annotation. [IntelliJ IDEA][intellij] has 
 built-in support for the @Nullable annotation.
 
-Read more about why not to use nulls in [The worst mistake of computer science][the-worst-mistake-of-computer-science].
+Read more about why not to use nulls in
+[The worst mistake of computer science][the-worst-mistake-of-computer-science].
 
 If you're using [Java 8][java8], you can use the excellent new 
 [Optional][optional] type. If a value may or may not be present, wrap it in
@@ -285,10 +287,10 @@ Now you can be sure that fooWidget won't be accidentally reassigned. The *final*
 keyword works with if/else blocks and with try/catch blocks. Of course, if the
 *fooWidget* itself isn't immutable you could easily mutate it.
 
-Collections should, whenever possible, use the Guava [ImmutableMap][immutablemap],
-[ImmutableList][immutablelist], or [ImmutableSet][immutableset] classes. These
-have builders so that you can build them up dynamically and then mark them 
-immutable by calling the build method.
+Collections should, whenever possible, use the Guava
+[ImmutableMap][immutablemap], [ImmutableList][immutablelist], or
+[ImmutableSet][immutableset] classes. These have builders so that you can build
+them up dynamically and then mark them immutable by calling the build method.
 
 Classes should be made immutable by declaring fields immutable (via *final*)
 and by using immutable collections. Optionally, you can make the class itself 
@@ -525,9 +527,9 @@ network access, disk access, memoize functions, or anything really. Just
 implement a [CacheBuilder][cachebuilder] which tells Guava how to build your
 cache and you're all set!
 
-**Immutable** collections. There's a bunch of these: [ImmutableMap][immutablemap],
-[ImmutableList][immutablelist], or even [ImmutableSortedMultiSet][immutablesorted]
- if that's your style.
+**Immutable** collections. There's a bunch of these:
+[ImmutableMap][immutablemap], [ImmutableList][immutablelist], or even
+[ImmutableSortedMultiSet][immutablesorted] if that's your style.
 
 I also like writing mutable collections the Guava way:
 
@@ -582,7 +584,8 @@ Pair<String, Integer> func(String input) {
 
 #### Javaslang
 
-[Javaslang][javaslang] is a functional library, designed to add missing features that should have been part of Java 8. Some of these features are
+[Javaslang][javaslang] is a functional library, designed to add missing features
+that should have been part of Java 8. Some of these features are
 
 * an all-new functional collection library
 * tightly integrated tuples
@@ -592,7 +595,11 @@ Pair<String, Integer> func(String input) {
 * null-safety with the help of Option
 * better exception handling with the help of Try
 
-There are several Java libraries which depend on the original Java collections. These are restricted to stay compatible to classes which were created with an object-oriented focus and designed to be mutable. The Javaslang collections for Java are a completely new take, inspired by Haskell, Clojure and Scala. They are created with a functional focus and follow an immutable design.
+There are several Java libraries which depend on the original Java collections.
+These are restricted to stay compatible to classes which were created with an
+object-oriented focus and designed to be mutable. The Javaslang collections for
+Java are a completely new take, inspired by Haskell, Clojure and Scala. They are
+created with a functional focus and follow an immutable design.
 
 Code like this is automatically thread safe and try-catch free:
 
@@ -825,14 +832,33 @@ more powerful.
 
 ### Code Quality
 
-Even when following best practices, even the best developer will make mistakes. There are a number of tools out there that you can use to validate your Java code to detect problems in your code. Below is a small selection of some of the most popular tools. Many of these integrate with popular IDE's such as Eclipse or IntelliJ enabling you to spot mistakes in your code sooner.
+Even when following best practices, even the best developer will make mistakes.
+There are a number of tools out there that you can use to validate your Java
+code to detect problems in your code. Below is a small selection of some of the
+most popular tools. Many of these integrate with popular IDE's such as Eclipse
+or IntelliJ enabling you to spot mistakes in your code sooner.
 
-* **[Checkstyle](http://checkstyle.sourceforge.net/ "Checkstyle")**: A static code analyzer whose primary focus is to ensure that your code adheres to a coding standard. Rules are defined in an XML file that can be checked into source control alongside your code.
-* **[FindBugs](http://findbugs.sourceforge.net/ "FindBugs")**: Aims to spot code that can result in bugs/errors. Runs as a standalone process but has good integration into modern IDE's and build tools.  
-* **[PMD](https://pmd.github.io/ "PMD")**: Similar to FindBugs, PMD aims to spot common mistakes & possible tidy-ups in your code. What rules are run against your code can be controlled via an XML file you can commit alongside your code. 
-* **[SonarQube](http://www.sonarqube.org/ "SonarQube")**: Unlike the previous tools that run locally, SonarQube runs on a server that you submit your code to for analysis. It provides a web GUI where you are able to gain a wealth of information about your code such as bad practices, potential bugs, percentage test coverage and the level of [technical debt](https://en.wikipedia.org/wiki/Technical_debt "Technical Debt on Wikipedia") in your code. 
+* **[Checkstyle](http://checkstyle.sourceforge.net/ "Checkstyle")**: A static
+code analyzer whose primary focus is to ensure that your code adheres to a
+coding standard. Rules are defined in an XML file that can be checked into
+source control alongside your code.
+* **[FindBugs](http://findbugs.sourceforge.net/ "FindBugs")**: Aims to spot code
+that can result in bugs/errors. Runs as a standalone process but has good
+integration into modern IDE's and build tools.
+* **[PMD](https://pmd.github.io/ "PMD")**: Similar to FindBugs, PMD aims to spot
+common mistakes & possible tidy-ups in your code. What rules are run against
+your code can be controlled via an XML file you can commit alongside your code.
+* **[SonarQube](http://www.sonarqube.org/ "SonarQube")**: Unlike the previous
+tools that run locally, SonarQube runs on a server that you submit your code to
+for analysis. It provides a web GUI where you are able to gain a wealth of
+information about your code such as bad practices, potential bugs, percentage
+test coverage and the level of
+[technical debt](https://en.wikipedia.org/wiki/Technical_debt "Technical Debt on Wikipedia")
+in your code.
 
-As well as using these tools during development, it's often a good idea to also have them run during your build stages. They can be tied into build tools such as Maven or Gradle & also into continuous integration tools.
+As well as using these tools during development, it's often a good idea to also
+have them run during your build stages. They can be tied into build tools such
+as Maven or Gradle & also into continuous integration tools.
 
 ### Eclipse Memory Analyzer
 
