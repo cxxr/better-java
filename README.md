@@ -11,6 +11,8 @@ suggesting additions.
 This article was originally posted on 
 [my blog](https://www.seancassidy.me/better-java.html).
 
+Read this in other languages: [English](README.md), [简体中文](README.zh-cn.md)
+
 ## Table Of Contents
 
 * [Style](#style)
