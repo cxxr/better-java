@@ -177,8 +177,7 @@ this [presentation](https://docs.google.com/presentation/d/14u_h-lMn7f1rXE1nDiLX
 for an interesting discussion of some of the problems with normal Java coding
 patterns.
 
-Some great code generation libraries are [immutables]
-(https://github.com/immutables/immutables), Google's 
+Some great code generation libraries are [immutables](https://github.com/immutables/immutables), Google's 
 [auto-value](https://github.com/google/auto/tree/master/value) and 
 [Lombok][lombok].
 
