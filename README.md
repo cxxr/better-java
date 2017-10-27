@@ -785,6 +785,21 @@ assertThat(some.testMethod()).hasSize(4)
 
 This fluent interface makes your tests more readable. What more could you want?
 
+#### JUnitParams 
+
+[JUnitParams](https://pragmatists.github.io/JUnitParams/) project adds a new runner to JUnit and provides much easier and readable parametrised tests for JUnit >=4.6.
+
+The following example shows how you can create a parametrised test. Note that there is not a large difference between a standard JUnit test and a parametrised one.
+
+```
+  @Test
+  @Parameters({"17, false", 
+               "22, true" })
+  public void personIsAdult(int age, boolean valid) throws Exception {
+    assertThat(new Person(age).isAdult(), is(valid));
+  }
+```
+
 ## Tools
 
 ### IntelliJ IDEA
