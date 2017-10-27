@@ -2,13 +2,13 @@
 
 Java is one of the most popular programming languages around, but no one seems
 to enjoy using it. Well, Java is actually an alright programming language, and
-since Java 8 came out recently, I decided to compile a list of libraries, 
+since Java 8 came out recently, I decided to compile a list of libraries,
 practices, and tools to make using Java better. "Better" is subjective, so I
 would recommend taking the parts that speak to you and use them, rather than
-trying to use all of them at once. Feel free to submit pull requests 
+trying to use all of them at once. Feel free to submit pull requests
 suggesting additions.
 
-This article was originally posted on 
+This article was originally posted on
 [my blog](https://www.seancassidy.me/better-java.html).
 
 Read this in other languages: [English](README.md), [简体中文](README.zh-cn.md)
@@ -109,7 +109,7 @@ is immutable unless you extend it, so we can reason about it easier as we know
 that it can't be changed.
 
 If you're storing objects like Map or List that can be modified easily, you
-should instead use ImmutableMap or ImmutableList, which is discussed in the 
+should instead use ImmutableMap or ImmutableList, which is discussed in the
 section about immutability.
 
 #### The Builder Pattern
@@ -133,7 +133,7 @@ public class ComplicatedDataHolder {
     public static class Builder {
         private String data;
         private int num;
-        
+
         public Builder data(String data) {
             this.data = data;
             return this;
@@ -163,31 +163,31 @@ final ComplicatedDataHolder cdh = new ComplicatedDataHolder.Builder()
 There are [better examples of Builders elsewhere][builderex] but this should
 give you a taste for what it's like. This ends up with a lot of the boilerplate
 we were trying to avoid, but it gets you immutable objects and a very fluent
-interface. 
+interface.
 
-Instead of creating builder objects by hand, consider using one of the many 
+Instead of creating builder objects by hand, consider using one of the many
 libraries which can help you generate builders.
 
 #### Immutable Object Generation
 
-If you create many immutable objects by hand, consider using the annotation 
-processor to generate them from interfaces automatically. This minimizes 
+If you create many immutable objects by hand, consider using the annotation
+processor to generate them from interfaces automatically. This minimizes
 boilerplate code, reduces probability of bugs and promotes immutability. See
 this [presentation](https://docs.google.com/presentation/d/14u_h-lMn7f1rXE1nDiLX0azS3IkgjGl5uxp5jGJ75RE/edit#slide=id.g2a5e9c4a8_00)
 for an interesting discussion of some of the problems with normal Java coding
 patterns.
 
-Some great code generation libraries are [immutables](https://github.com/immutables/immutables), Google's 
-[auto-value](https://github.com/google/auto/tree/master/value) and 
+Some great code generation libraries are [immutables](https://github.com/immutables/immutables), Google's
+[auto-value](https://github.com/google/auto/tree/master/value) and
 [Lombok][lombok].
 
 ### Exceptions
 
-[Checked exceptions][checkedex] should be used with caution, if at all. They 
-force your users to add many try/catch blocks and wrap your exceptions in their 
-own. Better is to make your exceptions extend RuntimeException instead. This 
-allows your users to handle your exceptions in the way they would like, rather 
-than forcing them to handle/declare that it throws every time, which pollutes 
+[Checked exceptions][checkedex] should be used with CAUTION, if at all. They
+force your users to add many try/catch blocks and wrap your exceptions in their
+own. Better is to make your exceptions extend RuntimeException instead. This
+allows your users to handle your exceptions in the way they would like, rather
+than forcing them to handle/declare that it throws every time, which pollutes
 the code.
 
 One nifty trick is to put RuntimeExceptions in your method's throws declaration.
@@ -202,27 +202,27 @@ the best ways to write testable software is to use [dependency injection][di]
 you need to use DI.
 
 In Java, this is typically done with the [Spring Framework][spring]. It has a
-either code-based wiring or XML configuration-based wiring. If you use the XML 
+either code-based wiring or XML configuration-based wiring. If you use the XML
 configuration, it's important that you [don't overuse Spring][springso] because
 of its XML-based configuration format.  There should be absolutely no logic or
 control structures in XML. It should only inject dependencies.
 
 Good alternatives to using Spring is Google and Square's [Dagger][dagger]
-library or Google's [Guice][guice]. They don't use Spring's XML 
+library or Google's [Guice][guice]. They don't use Spring's XML
 configuration file format, and instead they put the injection logic in
 annotations and in code.
 
-### Avoid Nulls
+### Avoid Null
 
-Try to avoid using nulls when you can. Do not return null collections when you
-should have instead returned an empty collection. If you're going to use null, 
-consider the [@Nullable][nullable] annotation. [IntelliJ IDEA][intellij] has 
+Try to avoid using null when you can. DO NOT return null collections when you
+should have instead returned an empty collection. If you're going to use null,
+consider the [@Nullable][nullable] annotation. [IntelliJ IDEA][intellij] has
 built-in support for the @Nullable annotation.
 
-Read more about why not to use nulls in
+Read more about why not to use null in
 [The worst mistake of computer science][the-worst-mistake-of-computer-science].
 
-If you're using [Java 8][java8], you can use the excellent new 
+If you're using [Java 8][java8], you can use the excellent new
 [Optional][optional] type. If a value may or may not be present, wrap it in
 an *Optional* class like this:
 
@@ -247,8 +247,7 @@ public class FooWidget {
 ```
 
 So now it's clear that *data* will never be null, but *bar* may or may not be
-present. *Optional* has methods like *isPresent*, which may make it feel like
-not a lot is different from just checking *null*. But it allows you to write
+present. *Optional* has methods like *isPresent*, which make it seems similar with just checking *null*. But it allows you to write
 statements like:
 
 ```java
@@ -258,14 +257,14 @@ final Baz baz = fooWidget.flatMap(FooWidget::getBar)
                          .orElse(defaultBaz);
 ```
 
-Which is much better than chained if null checks. The only downside of using
+Which is much better than chained if-null checks. The only downside of using
 Optional is that the standard library doesn't have good Optional support, so
 dealing with nulls is still required there.
 
 ### Immutable-by-default
 
 Unless you have a good reason to make them otherwise, variables, classes, and
-collections should be immutable.
+collections SHOULD be immutable.
 
 Variables can be made immutable with *final*:
 
@@ -294,12 +293,12 @@ Collections should, whenever possible, use the Guava
 them up dynamically and then mark them immutable by calling the build method.
 
 Classes should be made immutable by declaring fields immutable (via *final*)
-and by using immutable collections. Optionally, you can make the class itself 
+and by using immutable collections. Optionally, you can make the class itself
 *final* so that it can't be extended and made mutable.
 
 ### Avoid lots of Util classes
 
-Be careful if you find yourself adding a lot of methods to a Util class.
+BE CAREFUL if you find yourself adding a lot of methods to a Util class.
 
 ```java
 public class MiscUtil {
@@ -319,7 +318,7 @@ name of code reuse.
 
 The cure is worse than the disease. Put these classes where they belong and
 refactor aggressively. Don't name classes, packages, or libraries anything
-too generic, such as "MiscUtils" or "ExtrasLibrary". This encourages dumping 
+too generic, such as "MiscUtils" or "ExtrasLibrary". This encourages dumping
 unrelated code there.
 
 ### Formatting
@@ -335,7 +334,7 @@ If you absolutely need a code formatting guide, I highly recommend
 
 #### Javadoc
 
-Documenting your user facing code is important. And this means 
+Documenting your user facing code is important. And this means
 [using examples][javadocex] and using sensible descriptions of variables,
 methods, and classes.
 
@@ -379,10 +378,10 @@ flexible.
 
 Because deploying Java isn't easy, frameworks have been made which can help.
 Two of the best are [Dropwizard][dropwizard] and [Spring Boot][springboot].
-The [Play framework][play] can also be considered one of these deployment 
+The [Play framework][play] can also be considered one of these deployment
 frameworks as well.
 
-All of them try to lower the barrier to getting your code out the door. 
+All of them try to lower the barrier to getting your code out the door.
 They're especially helpful if you're new to Java or if you need to get things
 done fast. Single JAR deployments are just easier than complicated WAR or EAR
 deployments.
@@ -396,7 +395,7 @@ made, you'll have to migrate to a more hand-rolled configuration.
 **Good alternative**: [Gradle][gradle].
 
 Maven is still the standard tool to build, package, and run your tests. There
-are alternatives, like Gradle, but they don't have the same adoption that Maven 
+are alternatives, like Gradle, but they don't have the same adoption that Maven
 has. If you're new to Maven, you should start with
 [Maven by Example][mavenexample].
 
@@ -443,7 +442,7 @@ is, something like this:
 
 Which version will get pulled into your project?
 
-With the [Maven dependency convergence plugin][depconverge], the build will 
+With the [Maven dependency convergence plugin][depconverge], the build will
 error if your dependencies don't use the same version. Then, you have two
 options for solving the conflict:
 
@@ -462,7 +461,7 @@ to continuously build your SNAPSHOT versions and tag builds based on git tags.
 
 [Jenkins][jenkins] and [Travis-CI][travis] are natural choices.
 
-Code coverage is useful, and [Cobertura][cobertura] has 
+Code coverage is useful, and [Cobertura][cobertura] has
 [a good Maven plugin][coberturamaven] and CI support. There are other code
 coverage tools for Java, but I've used Cobertura.
 
@@ -474,7 +473,7 @@ need a repository.
 Common choices are [Artifactory][artifactory] and [Nexus][nexus]. Both work,
 and have their own [pros and cons][mavenrepo].
 
-You should have your own Artifactory/Nexus installation and 
+You should have your own Artifactory/Nexus installation and
 [mirror your dependencies][artifactorymirror] onto it. This will stop your
 build from breaking because some upstream Maven repository went down.
 
@@ -494,7 +493,7 @@ Regardless of what tool you choose, don't forget to automate your deployments.
 
 ## Libraries
 
-Probably the best feature about Java is the extensive amount of libraries it 
+Probably the best feature about Java is the extensive amount of libraries it
 has. This is a small collection of libraries that are likely to be applicable
 to the largest group of people.
 
@@ -510,10 +509,10 @@ missing several key features.
 **Commons Codec** has many useful encoding/decoding methods for Base64 and hex
 strings. Don't waste your time rewriting those.
 
-**Commons Lang** is the go-to library for String manipulation and creation, 
+**Commons Lang** is the go-to library for String manipulation and creation,
     character sets, and a bunch of miscellaneous utility methods.
 
-**Commons IO** has all the File related methods you could ever want. It has 
+**Commons IO** has all the File related methods you could ever want. It has
 [FileUtils.copyDirectory][copydir], [FileUtils.writeStringToFile][writestring],
 [IOUtils.readLines][readlines] and much more.
 
@@ -550,7 +549,7 @@ class, which has methods like filter and transform. They allow you to write
 fluent code without [Java 8][java8]'s stream support.
 
 
-Guava has simple things too, like a **Joiner** that joins strings on 
+Guava has simple things too, like a **Joiner** that joins strings on
 separators and a [class to handle interrupts][uninterrupt] by ignoring them.
 
 #### Gson
@@ -624,9 +623,9 @@ public static List<String> sayByeBye() {
 #### Joda-Time
 
 [Joda-Time][joda] is easily the best time library I've ever used. Simple,
-straightforward, easy to test. What else can you ask for? 
+straightforward, easy to test. What else can you ask for?
 
-You only need this if you're not yet on Java 8, as that has its own new 
+You only need this if you're not yet on Java 8, as that has its own new
 [time][java8datetime] library that doesn't suck.
 
 #### Lombok
@@ -656,12 +655,12 @@ yet, but I can't wait to.
 
 **Good alternatives**: [Jersey][jersey] or [Spark][spark]
 
-There are two main camps for doing RESTful web services in Java: 
+There are two main camps for doing RESTful web services in Java:
 [JAX-RS][jaxrs] and everything else.
 
 JAX-RS is the traditional way. You combine annotations with interfaces and
 implementations to form the web service using something like [Jersey][jersey].
-What's nice about this is you can easily make clients out of just the 
+What's nice about this is you can easily make clients out of just the
 interface class.
 
 The [Play framework][play] is a radically different take on web services on
@@ -669,7 +668,7 @@ the JVM: you have a routes file and then you write the classes referenced in
 those routes. It's actually an [entire MVC framework][playdoc], but you can
 easily use it for just REST web services.
 
-It's available for both Java and Scala. It suffers slightly from being 
+It's available for both Java and Scala. It suffers slightly from being
 Scala-first, but it's still good to use in Java.
 
 If you're used to micro-frameworks like Flask in Python, [Spark][spark] will
@@ -695,7 +694,7 @@ It lets you write SQL in Java in a type safe way:
 
 ```java
 // Typesafely execute the SQL statement directly with jOOQ
-Result<Record3<String, String, String>> result = 
+Result<Record3<String, String, String>> result =
 create.select(BOOK.TITLE, AUTHOR.FIRST_NAME, AUTHOR.LAST_NAME)
     .from(BOOK)
     .join(AUTHOR)
@@ -737,7 +736,7 @@ public class FooWidgetTest {
     @Test
     public void basicTest() {
         final FooWidgetDependency dep = context.mock(FooWidgetDependency.class);
-        
+
         context.checking(new Expectations() {{
             oneOf(dep).call(with(any(String.class)));
             atLeast(0).of(dep).optionalCall();
@@ -790,7 +789,7 @@ This fluent interface makes your tests more readable. What more could you want?
 
 The best Java IDE is [IntelliJ IDEA][intellij]. It has a ton of awesome
 features, and is really the main thing that makes the verbosity of Java
-bareable. Autocomplete is great, 
+bareable. Autocomplete is great,
 [the inspections are top notch][intellijexample], and the refactoring
 tools are really helpful.
 
@@ -827,7 +826,7 @@ and Strings that are actually regular expressions, nor does it do any
 [taint checking][taint]. However, [the Checker Framework][checker]
 does this and more.
 
-It uses annotations like *@Nullable* to check types. You can even define 
+It uses annotations like *@Nullable* to check types. You can even define
 [your own annotations][customchecker] to make the static analysis done even
 more powerful.
 
