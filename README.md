@@ -1,3 +1,6 @@
+*Note*: I'm working on version 2 of this guide and I need your help! Please use [this form to give me feedback](https://goo.gl/forms/Do5E8pVlKHuFWjQs1) on what you think should go in the next version. Thanks!
+
+
 # Better Java
 
 Java is one of the most popular programming languages around, but no one seems
