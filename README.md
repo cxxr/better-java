@@ -394,6 +394,12 @@ However, they can be somewhat inflexible and are rather opinionated, so if
 your project doesn't fit with the choices the developers of your framework
 made, you'll have to migrate to a more hand-rolled configuration.
 
+#### REST APIs
+
+##### Swagger
+
+[Swagger](http://swagger.io/) is a simple representation of your RESTful API. It is very usefull to describe your REST API and give suport  operations teams and developers with [documentation](https://github.com/swagger-api/swagger-core.
+
 ### Maven
 
 **Good alternative**: [Gradle][gradle].
