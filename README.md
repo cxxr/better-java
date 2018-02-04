@@ -890,6 +890,7 @@ what's going on fast.
 ## Resources
 
 Resources to help you become a Java master.
+[Hackr.io's Curated Java Resources](https://hackr.io/tutorials/learn-java)
 
 ### Books
 
