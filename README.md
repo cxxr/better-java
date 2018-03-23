@@ -1,11 +1,8 @@
-*Note*: I'm working on version 2 of this guide and I need your help! Please use [this form to give me feedback](https://goo.gl/forms/yoWihX9ZjPI9x24o1) on what you think should go in the next version. Thanks!
-
-
 # Better Java
 
 Java is one of the most popular programming languages around, but no one seems
 to enjoy using it. Well, Java is actually an alright programming language, and
-since Java 8 came out recently, I decided to compile a list of libraries, 
+since Java 10 came out recently, I decided to compile a list of libraries, 
 practices, and tools to make using Java better. "Better" is subjective, so I
 would recommend taking the parts that speak to you and use them, rather than
 trying to use all of them at once. Feel free to submit pull requests 
@@ -14,10 +11,13 @@ suggesting additions.
 This article was originally posted on 
 [my blog](https://www.seancassidy.me/better-java.html).
 
-Read this in other languages: [English](README.md), [简体中文](README.zh-cn.md)
-
 ## Table Of Contents
 
+* [New Features](#new-features)
+  * [Java 10](#java-10)
+    * [Type Inference](#type-inference)
+  * [Java 9](#java-9)
+  * [Java 8](#java-8)
 * [Style](#style)
   * [Structs](#structs)
     * [The Builder Pattern](#the-builder-pattern)
@@ -64,6 +64,134 @@ Read this in other languages: [English](README.md), [简体中文](README.zh-cn.
   * [Books](#books)
   * [Podcasts](#podcasts)
   * [Videos](#videos)
+
+## New Features
+
+There have been three major Java versions that have come out in the past few
+years, and it's worth talking about the benefits each brings.
+
+One quick aside about Java versions: they're different as of Java 10. Instead
+of releasing when major features are complete, Oracle will be releasing twice a
+year and the version number is the year and month of the release. So, what
+would otherwise be called Java 10 is actually Java 18.3. This isn't the first
+time Java has had a major versioning change, but this one has [some major
+opposition][java9versioning].
+
+What seems sure, though, is more frequent updates to Java itself.
+
+### Java 10
+
+Java 10 (also known as Java 18.3) has fewer new features than Java 9 did, but 
+there is one gem in particular that most developers would be interested in: 
+type inference.
+
+#### Type Inference
+
+Java finally gets what C#, Scala, and other languages have had for years: not
+needing to type the full type before a variable. Instead, you can simply type
+`var` and Java will infer the type for you:
+
+```java
+    var file = new File("/tmp/file");
+    var map = new HashMap<String, List<Integer>>();
+```
+
+Since Java already had a shortened way of writing collections with arrows `<>`,
+you can't use both `var` and arrows at the same time. Need to specify one or
+the other.
+
+One limitation of this is that there is no return type inference on functions
+via the [Hindley-Milner type inference algorithm][hindleymilner], so you still
+have to declare the actual type for function return types, as well as function
+arguments. Oracle has stated the reason for this is that Hindley-Milner takes
+exponential time to compute, but Algorithm W is actually polynominal on nearly
+every reasonable input, so I'm not sure why they say that.
+
+See this [informative blog post][java10typeinference] for more information.
+
+### Java 9
+
+Java 9 has a [boatload of new features][java9features], so I'll only mention
+the ones I think will make the biggest difference to most developers.
+
+#### jshell
+
+Python's [REPL][repl] is famous for a good reason: it makes writing Python 
+easier and faster. Most Java developers keep a scratch project just to try
+things out, but that's no longer needed: enter [jshell][jshell], a REPL for
+Java.
+
+```
+$ jshell
+|  Welcome to JShell -- Version 10
+|  For an introduction type: /help intro
+
+jshell> int five = 5;
+five ==> 5
+
+jshell> five * 10
+$2 ==> 50
+
+jshell> "hello".indexOf("l")
+$3 ==> 2
+```
+
+#### ProcessHandle
+
+Working with external processes in Java has always been annoying. How do you
+get your own PID or the PIDs of your child processes? Usually you'd have to
+resort to operating system-specific hacks or even write your own JNI for it.
+Now with the new [ProcessHandle][processhandle] class, it's easy.
+
+#### Optional Improvements
+
+In Java 9, [Optional][optionaljava9] gets three new methods: stream(), which
+returns the Optional as a Stream, and two others that deserve an example.
+
+Before Java 9, this code is sometimes necessary:
+
+```java
+    Optional<String> optional = // ...
+    if (optional.isPresent()) {
+        String str = optional.get();
+        doSomething(str);
+    } else {
+        doSomethingElse();
+    }
+```
+
+But now that can be done in a much more compact way with `ifPresentOrElse`:
+
+```java
+    Optional<String> optional = // ...
+    optional.ifPresentOrElse(
+            str -> doSomething(str),
+            () -> doSomethingElse()
+    );
+```
+
+There's another super useful method that's been added to Optional: `or`. Let's
+say you have two Optionals, A and B. You want A if it's there, or B if it's
+not. Before Java 9:
+
+```java
+    Optional<String> optional = a.isPresent() ? a : b;
+```
+
+But now you can do that with `or`, and it has the added benefit of being a
+[Supplier][supplierjava9]:
+
+```java
+    Optional<String> optional = a.or(() -> b);
+```
+
+#### Modules
+
+TODO
+
+### Java 8
+
+TODO
 
 ## Style
 
@@ -1000,3 +1128,8 @@ Resources to help you become a Java master.
 [java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
 [checkedex]: http://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html
 [the-worst-mistake-of-computer-science]: https://www.lucidchart.com/techblog/2015/08/31/the-worst-mistake-of-computer-science/
+[java9versioning]: https://jaxenter.com/java-9-version-numbering-scheme-137544.html
+[hindleymilner]: https://en.wikipedia.org/wiki/Hindley–Milner_type_system
+[java10typeinference]: https://developer.oracle.com/java/jdk-10-local-variable-type-inference
+[processhandle]: https://docs.oracle.com/javase/9/docs/api/java/lang/ProcessHandle.html
+[optionaljava9]: https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html
