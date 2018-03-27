@@ -40,18 +40,19 @@ This article was originally posted on
 * [Libraries](#libraries)
   * [Missing Features](#missing-features)
     * [Apache Commons](#apache-commons)
+    * [Caffeine](#caffeine)
     * [Guava](#guava)
     * [Gson](#gson)
     * [Java Tuples](#java-tuples)
     * [Javaslang](#javaslang)
-    * [Joda-Time](#joda-time)
     * [Lombok](#lombok)
     * [Play framework](#play-framework)
     * [SLF4J](#slf4j)
     * [jOOQ](#jooq)
+    * [HikariCP](#hikaricp)
   * [Testing](#testing)
     * [jUnit 4](#junit-4)
-    * [jMock](#jmock)
+    * [Mockito](#mockito)
     * [AssertJ](#assertj)
 * [Tools](#tools)
   * [IntelliJ IDEA](#intellij-idea)
@@ -338,7 +339,7 @@ configuration, it's important that you [don't overuse Spring][springso] because
 of its XML-based configuration format.  There should be absolutely no logic or
 control structures in XML. It should only inject dependencies.
 
-Good alternatives to using Spring is Google and Square's [Dagger][dagger]
+Good alternatives to using Spring is Google and Square's [Dagger 2][dagger]
 library or Google's [Guice][guice]. They don't use Spring's XML 
 configuration file format, and instead they put the injection logic in
 annotations and in code.
@@ -648,16 +649,19 @@ strings. Don't waste your time rewriting those.
 [FileUtils.copyDirectory][copydir], [FileUtils.writeStringToFile][writestring],
 [IOUtils.readLines][readlines] and much more.
 
+#### Caffeine
+
+**Good alternative**: [Guava](#guava) cache.
+
+Caffeine is a high performance, near optimal in-memory cache. It can
+automatically load data, evict entries based on size of the cache or time,
+asynchronously refresh entries, propagate writes to other systems, and more.
+
 #### Guava
 
 [Guava][guava] is Google's excellent here's-what-Java-is-missing library. It's
 almost hard to distill everything that I like about this library, but I'm
 going to try.
-
-**Cache** is a simple way to get an in-memory cache that can be used to cache
-network access, disk access, memoize functions, or anything really. Just
-implement a [CacheBuilder][cachebuilder] which tells Guava how to build your
-cache and you're all set!
 
 **Immutable** collections. There's a bunch of these:
 [ImmutableMap][immutablemap], [ImmutableList][immutablelist], or even
@@ -752,14 +756,6 @@ public static List<String> sayByeBye() {
 }
 ```
 
-#### Joda-Time
-
-[Joda-Time][joda] is easily the best time library I've ever used. Simple,
-straightforward, easy to test. What else can you ask for? 
-
-You only need this if you're not yet on Java 8, as that has its own new 
-[time][java8datetime] library that doesn't suck.
-
 #### Lombok
 
 [Lombok][lombok] is an interesting library. Through annotations, it allows you
@@ -818,6 +814,8 @@ started.
 
 #### jOOQ
 
+**Good alternative**: [Querydsl][querydsl]
+
 I dislike heavy ORM frameworks because I like SQL. So I wrote a lot of
 [JDBC templates][jdbc] and it was sort of hard to maintain. [jOOQ][jooq] is a
 much better solution.
@@ -837,6 +835,16 @@ create.select(BOOK.TITLE, AUTHOR.FIRST_NAME, AUTHOR.LAST_NAME)
 
 Using this and the [DAO][dao] pattern, you can make database access a breeze.
 
+#### HikariCP
+
+How do you manage connections to your JDBC-supported database? Hopefully not by
+using raw `DataSource` objects yourself. Save yourself some headache and speed
+up your database access by using [HikariCP][hikaricp]. It's a super lightweight
+library written with some really cool techniques they use to [really cut down
+on the size and speed it up][hikariopt].
+
+HikariCP supports every RDBMS I've ever heard of. 
+
 ### Testing
 
 Testing is critical to your software. These packages help make it easier.
@@ -853,38 +861,35 @@ But you're probably not using jUnit to its full potential. jUnit supports
 so much boilerplate, [theories][junittheories] to randomly test certain code,
 and [assumptions][junitassume].
 
-#### jMock
+#### Mockito
 
 If you've done your dependency injection, this is where it pays off: mocking
 out code which has side effects (like talking to a REST server) and still
 asserting behavior of code that calls it.
 
-[jMock][jmock] is the standard mocking tool for Java. It looks like this:
+[Mockito][mockito] is the standard mocking tool for Java. It looks like this:
 
 ```java
-public class FooWidgetTest {
-    private Mockery context = new Mockery();
+import static org.mockito.Mockito.*;
 
+public class FooWidgetTest {
     @Test
     public void basicTest() {
-        final FooWidgetDependency dep = context.mock(FooWidgetDependency.class);
-        
-        context.checking(new Expectations() {{
-            oneOf(dep).call(with(any(String.class)));
-            atLeast(0).of(dep).optionalCall();
-        }});
+        final FooWidgetDependency dep = mock(FooWidgetDependency.class);
+
+        when(dep).getInfo().thenReturn("This is the information you want");
 
         final FooWidget foo = new FooWidget(dep);
-
+        
         Assert.assertTrue(foo.doThing());
-        context.assertIsSatisfied();
+        verify(dep).subDoThing();
     }
 }
 ```
 
-This sets up a *FooWidgetDependency* via jMock and then adds expectations. We
-expect that *dep*'s *call* method will be called once with some String and that
-*dep*'s *optionalCall* method will be called zero or more times.
+This sets up a *FooWidgetDependency* via jMock and then adds expectations via
+`when`. We expect that *dep*'s `doSubThing` method will be called. Mockito
+supports spys which allow partial mocking, which is very useful.
 
 If you have to set up the same dependency over and over, you should probably
 put that in a [test fixture][junitfixture] and put *assertIsSatisfied* in an
@@ -912,6 +917,25 @@ assertThat(some.testMethod()).hasSize(4)
 ```
 
 This fluent interface makes your tests more readable. What more could you want?
+
+#### Awaitility
+
+I've had the misfortune of trying to test asynchronous code without any help.
+It's tricky at the best of times because you need to wait on multiple steps
+which can have real world time delays, so you insert custom test `Clock`
+objects and advance the clock and then wait for some state to change.
+
+With [Awaitility][awaitility] your job is much, much easier:
+
+```java
+await().atMost(5, SECONDS).until(userRepositorySize(), equalTo(1));
+
+// or
+
+AtomicBoolean atomic = new AtomicBoolean(false);
+// Do some async stuff that eventually updates the atomic boolean
+await().untilTrue(atomic);
+```
 
 ## Tools
 
@@ -974,10 +998,13 @@ or IntelliJ enabling you to spot mistakes in your code sooner.
 code analyzer whose primary focus is to ensure that your code adheres to a
 coding standard. Rules are defined in an XML file that can be checked into
 source control alongside your code.
-* **[FindBugs](http://findbugs.sourceforge.net/ "FindBugs")**: Aims to spot code
+* **[SpotBugs](https://spotbugs.github.io/ "SpotBugs")**: Aims to spot code
 that can result in bugs/errors. Runs as a standalone process but has good
 integration into modern IDE's and build tools.
-* **[PMD](https://pmd.github.io/ "PMD")**: Similar to FindBugs, PMD aims to spot
+* **[Error Prone](http://errorprone.info/ "Error Prone")**: A compile-time 
+static analysis tool that catches common Java errors. It famously [caught a bug
+in Doug Lea's ConcurrentHashMap](https://bugs.openjdk.java.net/browse/JDK-8176402).
+* **[PMD](https://pmd.github.io/ "PMD")**: Similar to SpotBugs, PMD aims to spot
 common mistakes & possible tidy-ups in your code. What rules are run against
 your code can be controlled via an XML file you can commit alongside your code.
 * **[SonarQube](http://www.sonarqube.org/ "SonarQube")**: Unlike the previous
@@ -1067,7 +1094,6 @@ Resources to help you become a Java master.
 [artifactorymirror]: http://www.jfrog.com/confluence/display/RTF/Configuring+Artifacts+Resolution
 [gson]: https://github.com/google/gson
 [gsonguide]: https://sites.google.com/site/gson/gson-user-guide
-[joda]: http://www.joda.org/joda-time/
 [lombokguide]: http://jnb.ociweb.com/jnb/jnbJan2010.html
 [play]: https://www.playframework.com/
 [chef]: https://www.chef.io/chef/
@@ -1107,7 +1133,7 @@ Resources to help you become a Java master.
 [intellijexample]: http://i.imgur.com/92ztcCd.png
 [chronon]: http://blog.jetbrains.com/idea/2014/03/try-chronon-debugger-with-intellij-idea-13-1-eap/
 [eclipse]: https://www.eclipse.org/
-[dagger]: http://square.github.io/dagger/
+[dagger]: https://github.com/google/dagger
 [guice]: https://github.com/google/guice
 [netbeans]: https://netbeans.org/
 [mat]: http://www.eclipse.org/mat/
@@ -1133,3 +1159,7 @@ Resources to help you become a Java master.
 [java10typeinference]: https://developer.oracle.com/java/jdk-10-local-variable-type-inference
 [processhandle]: https://docs.oracle.com/javase/9/docs/api/java/lang/ProcessHandle.html
 [optionaljava9]: https://docs.oracle.com/javase/9/docs/api/java/util/Optional.html
+[querydsl]: https://github.com/querydsl/querydsl
+[hikaricp]: https://brettwooldridge.github.io/HikariCP/
+[hikariopt]: https://github.com/brettwooldridge/HikariCP/wiki/Down-the-Rabbit-Hole
+[awaitility]: https://github.com/awaitility/awaitility
