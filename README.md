@@ -114,7 +114,7 @@ See this [informative blog post][java10typeinference] for more information.
 
 ### Java 9
 
-Java 9 has a [boatload of new features][java9features], so I'll only mention
+Java 9 has a boatload of new features, so I'll only mention
 the ones I think will make the biggest difference to most developers.
 
 #### jshell
@@ -405,7 +405,7 @@ dealing with nulls is still required there.
 Unless you have a good reason to make them otherwise, variables, classes, and
 collections should be immutable.
 
-Variables can be made immutable with *final*:
+Variable references can be made immutable with *final*:
 
 ```java
 final FooWidget fooWidget;
@@ -1196,3 +1196,6 @@ Resources to help you become a Java master.
 [pit]: http://pitest.org/
 [jool]: https://github.com/jOOQ/jOOL
 [jackson]: https://github.com/FasterXML/jackson
+[jshell]: https://docs.oracle.com/javase/9/jshell/introduction-jshell.htm
+[repl]: https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop
+[mockito]: https://site.mockito.org/
