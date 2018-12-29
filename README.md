@@ -43,9 +43,8 @@ An older version of this article was originally posted on
     * [Caffeine](#caffeine)
     * [Metrics](#metrics)
     * [Guava](#guava)
+    * [jOOL](#jool)
     * [Gson](#gson)
-    * [Java Tuples](#java-tuples)
-    * [Javaslang](#javaslang)
     * [Lombok](#lombok)
     * [Play framework](#play-framework)
     * [SLF4J](#slf4j)
@@ -56,6 +55,8 @@ An older version of this article was originally posted on
     * [jUnit 5](#junit-5)
     * [Mockito](#mockito)
     * [AssertJ](#assertj)
+    * [Awaitility)(#awaitility)
+    * [Mutation Testing](#mutation-testing)
 * [Tools](#tools)
   * [IntelliJ IDEA](#intellij-idea)
     * [Chronon](#chronon)
@@ -372,9 +373,9 @@ public class FooWidget {
         this(data, Optional.empty());
     }
 
-    public FooWidget(String data, Optional<Bar> bar) {
+    public FooWidget(String data, Bar bar) {
         this.data = data;
-        this.bar = bar;
+        this.bar = Optional.of(bar);
     }
 
     public Optional<Bar> getBar() {
@@ -669,8 +670,6 @@ strings. Don't waste your time rewriting those.
 
 #### Caffeine
 
-**Good alternative**: [Guava](#guava) cache.
-
 [Caffeine][caffeine] is a high performance, near optimal in-memory cache. It can
 automatically load data, evict entries based on size of the cache or time,
 asynchronously refresh entries, propagate writes to other systems, and more.
@@ -712,11 +711,25 @@ If you're stuck with Java 6 or 7, you can use the [Collections2][collections2]
 class, which has methods like filter and transform. They allow you to write
 fluent code without [Java 8][java8]'s stream support.
 
-
 Guava has simple things too, like a **Joiner** that joins strings on 
 separators and a [class to handle interrupts][uninterrupt] by ignoring them.
 
+#### jOOL
+
+If Guava is Google's here's-whats-missing-from-Java, then [jOOL][jool] is
+Lukas Eder's version. It adds functional interfaces that take up to 16
+parameters, Tuples, Sequences, and allows you to use a functional programming
+style with check exceptions:
+
+```java
+Arrays.stream(dir.listFiles())
+      .map(Unchecked.function(File::getCanonicalPath)) // throws IOException
+      .forEach(System.out::println);
+```
+
 #### Gson
+
+**Good alternative**: [Jackson][jackson]
 
 Google's [Gson][gson] library is a simple and fast JSON parsing library. It
 works like this:
@@ -920,6 +933,43 @@ AtomicBoolean atomic = new AtomicBoolean(false);
 // Do some async stuff that eventually updates the atomic boolean
 await().untilTrue(atomic);
 ```
+
+#### Mutation Testing
+
+Tests are great and all, but how do you know your tests are actually correct?
+Wouldn't it be nice to know who is testing your tests? Enter mutation testing
+like [PIT][pit].
+
+PIT will actually mutate your code to ensure your tests will fail! Take some
+code like this:
+
+```java
+boolean process(String name, int age) {
+    if (name != null && name.length() >= 0 && age >= 0) {
+        compute();
+        return true;
+    } else {
+        return false;
+    }
+}
+```
+
+If you have a test that tests this `process` function, if you changed the code,
+the test should fail, right? PIT might generate a mutation like this:
+
+```java
+boolean process(String name, int age) {
+    if (name != null && name.length() == 0 && age < 0) {
+        compute();
+        return true;
+    } else {
+        return false;
+    }
+}
+```
+
+If your test _doesn't_ fail, then PIT will mark that function as not
+sufficiently well tested.
 
 ## Tools
 
@@ -1143,3 +1193,6 @@ Resources to help you become a Java master.
 [flyway]: https://flywaydb.org/
 [flywayapi]: https://flywaydb.org/getstarted/firststeps/api
 [jacoco]: https://www.jacoco.org/jacoco/
+[pit]: http://pitest.org/
+[jool]: https://github.com/jOOQ/jOOL
+[jackson]: https://github.com/FasterXML/jackson
