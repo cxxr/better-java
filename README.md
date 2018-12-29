@@ -8,7 +8,7 @@ would recommend taking the parts that speak to you and use them, rather than
 trying to use all of them at once. Feel free to submit pull requests 
 suggesting additions.
 
-This article was originally posted on 
+An older version of this article was originally posted on
 [my blog](https://www.seancassidy.me/better-java.html).
 
 ## Table Of Contents
@@ -41,6 +41,7 @@ This article was originally posted on
   * [Missing Features](#missing-features)
     * [Apache Commons](#apache-commons)
     * [Caffeine](#caffeine)
+    * [Metrics](#metrics)
     * [Guava](#guava)
     * [Gson](#gson)
     * [Java Tuples](#java-tuples)
@@ -50,15 +51,15 @@ This article was originally posted on
     * [SLF4J](#slf4j)
     * [jOOQ](#jooq)
     * [HikariCP](#hikaricp)
+    * [Config](#config)
   * [Testing](#testing)
-    * [jUnit 4](#junit-4)
+    * [jUnit 5](#junit-5)
     * [Mockito](#mockito)
     * [AssertJ](#assertj)
 * [Tools](#tools)
   * [IntelliJ IDEA](#intellij-idea)
     * [Chronon](#chronon)
   * [JRebel](#jrebel)
-  * [The Checker Framework](#the-checker-framework)
   * [Code Quality](#code-quality)
   * [Eclipse Memory Analyzer](#eclipse-memory-analyzer)
 * [Resources](#resources)
@@ -75,8 +76,8 @@ One quick aside about Java versions: they're different as of Java 10. Instead
 of releasing when major features are complete, Oracle will be releasing twice a
 year and the version number is the year and month of the release. So, what
 would otherwise be called Java 10 is actually Java 18.3. This isn't the first
-time Java has had a major versioning change, but this one has [some major
-opposition][java9versioning].
+time Java has had a major versioning change, but this one has 
+[some major opposition][java9versioning].
 
 What seems sure, though, is more frequent updates to Java itself.
 
@@ -190,9 +191,13 @@ But now you can do that with `or`, and it has the added benefit of being a
 
 TODO
 
+
 ### Java 8
 
-TODO
+The release of Java 8 was a step towards [functional programming][funcprog]
+with [forEach][foreach], [Streams][streams], and default methods on interfaces.
+
+There is also the wonderfully improved [java.time package][javatime]
 
 ## Style
 
@@ -594,9 +599,9 @@ to continuously build your SNAPSHOT versions and tag builds based on git tags.
 
 [Jenkins][jenkins] and [Travis-CI][travis] are natural choices.
 
-Code coverage is useful, and [Cobertura][cobertura] has 
-[a good Maven plugin][coberturamaven] and CI support. There are other code
-coverage tools for Java, but I've used Cobertura.
+Code coverage is useful (but don't go crazy shooting for 100% unless you know
+why you're doing that), and [JaCoCo][jacoco] is the best tool for Java code
+coverage nowadays.
 
 ### Maven repository
 
@@ -610,19 +615,32 @@ You should have your own Artifactory/Nexus installation and
 [mirror your dependencies][artifactorymirror] onto it. This will stop your
 build from breaking because some upstream Maven repository went down.
 
-### Configuration management
+### Database Migrations
 
-So now you've got your code compiled, your repository set up, and you need to
-get your code out in your development environment and eventually push it to
-production. Don't skimp here, because automating this will pay dividends for a
-long time.
+Nearly every modern application has some SQL database attached to it. Since
+those databases have a rigid schema, you need the ability to change them in
+a standard way. Enter database migrations, and the best tool in the Java
+ecosystem for that is [Flyway][flyway].
 
-[Chef][chef], [Puppet][puppet], and [Ansible][ansible] are typical choices.
-I've written an alternative called [Squadron][squadron], which I, of course,
-think you should check out because it's easier to get right than the
-alternatives.
+You create migration files like `V1__initial_schema.sql`, which just contain
+plain SQL like:
 
-Regardless of what tool you choose, don't forget to automate your deployments.
+```SQL
+
+CREATE TABLE example (
+    id BIGSERIAL PRIMARY KEY,
+    name CHARACTER VARYING NOT NULL,
+    age INTEGER NOT NULL
+);
+
+CREATE INDEX example_name_idx ON example (name);
+```
+
+Then you can either use the Flyway command line to migrate, Maven (I've used
+this for local test databases to great effect), or even [the API][flywayapi].
+
+Pair this with jOOQ's Java code generation and you have local test databases
+set up with the exact schemas you need and the classes to interact with them.
 
 ## Libraries
 
@@ -653,9 +671,19 @@ strings. Don't waste your time rewriting those.
 
 **Good alternative**: [Guava](#guava) cache.
 
-Caffeine is a high performance, near optimal in-memory cache. It can
+[Caffeine][caffeine] is a high performance, near optimal in-memory cache. It can
 automatically load data, evict entries based on size of the cache or time,
 asynchronously refresh entries, propagate writes to other systems, and more.
+
+#### Metrics
+
+[Metrics][metrics] from Dropwizard is a great way to collect application
+metrics for both your application and the JVM itself. 
+
+You can create Meters which measures the number of requests (or whatever you
+want), and then you can create a Gauge to get instantaneous reading of the
+number of requests per second, a Histogram to get the 90th or 99th percentile
+values of a Meter, and expose all of this via health checks.
 
 #### Guava
 
@@ -702,59 +730,6 @@ final FooWidget newFooWidget = gson.fromJson(json, FooWidget.class);
 
 It's really easy and a pleasure to work with. The [Gson user guide][gsonguide]
 has many more examples.
-
-#### Java Tuples
-
-One of my on going annoyances with Java is that it doesn't have tuples built
-into the standard library. Luckily, the [Java tuples][javatuples] project fixes
-that.
-
-It's simple to use and works great:
-
-```java
-Pair<String, Integer> func(String input) {
-    // something...
-    return Pair.with(stringResult, intResult);
-}
-```
-
-#### Javaslang
-
-[Javaslang][javaslang] is a functional library, designed to add missing features
-that should have been part of Java 8. Some of these features are
-
-* an all-new functional collection library
-* tightly integrated tuples
-* pattern matching
-* throughout thread-safety because of immutability
-* eager and lazy data types
-* null-safety with the help of Option
-* better exception handling with the help of Try
-
-There are several Java libraries which depend on the original Java collections.
-These are restricted to stay compatible to classes which were created with an
-object-oriented focus and designed to be mutable. The Javaslang collections for
-Java are a completely new take, inspired by Haskell, Clojure and Scala. They are
-created with a functional focus and follow an immutable design.
-
-Code like this is automatically thread safe and try-catch free:
-
-```java
-// Success/Failure containing the result/exception
-public static Try<User> getUser(int userId) {
-    return Try.of(() -> DB.findUser(userId))
-        .recover(x -> Match.of(x)
-            .whenType(RemoteException.class).then(e -> ...)
-            .whenType(SQLException.class).then(e -> ...));
-}
-
-// Thread-safe, reusable collections
-public static List<String> sayByeBye() {
-    return List.of("bye, "bye", "collect", "mania")
-               .map(String::toUpperCase)
-               .intersperse(" ");
-}
-```
 
 #### Lombok
 
@@ -845,11 +820,25 @@ on the size and speed it up][hikariopt].
 
 HikariCP supports every RDBMS I've ever heard of. 
 
+#### Config
+
+Configuration files are an essential part of many applications, and
+[Config][config] is my favorite Java library to read them. You write them in
+[HOCON][hocon], which stands for "Human-Optimized Config Object Notation". It
+looks like this:
+
+```
+name = "Example application"
+database = { user: "example", host: "example.com" }
+regions = ["us-west-2", "us-east-1"]
+regions += "us-east-2"
+```
+
 ### Testing
 
 Testing is critical to your software. These packages help make it easier.
 
-#### jUnit 4
+#### jUnit 5
 
 **Good alternative**: [TestNG][testng].
 
@@ -857,9 +846,8 @@ Testing is critical to your software. These packages help make it easier.
 in Java.
 
 But you're probably not using jUnit to its full potential. jUnit supports
-[parametrized tests][junitparam], [rules][junitrules] to stop you from writing
-so much boilerplate, [theories][junittheories] to randomly test certain code,
-and [assumptions][junitassume].
+[parametrized tests][junitparam], [extensions][junitext] to stop you from writing
+so much boilerplate, and [assumptions][junitassume].
 
 #### Mockito
 
@@ -887,13 +875,9 @@ public class FooWidgetTest {
 }
 ```
 
-This sets up a *FooWidgetDependency* via jMock and then adds expectations via
+This sets up a *FooWidgetDependency* via Mockito and then adds expectations via
 `when`. We expect that *dep*'s `doSubThing` method will be called. Mockito
 supports spys which allow partial mocking, which is very useful.
-
-If you have to set up the same dependency over and over, you should probably
-put that in a [test fixture][junitfixture] and put *assertIsSatisfied* in an
-*@After* fixture.
 
 #### AssertJ
 
@@ -975,17 +959,6 @@ That's what [JRebel][jrebel] does. Once you hook up your server to your JRebel
 client, you can see changes on your server instantly. It's a huge time savings
 when you want to experiment quickly.
 
-### The Checker Framework
-
-Java's type system is pretty weak. It doesn't differentiate between Strings
-and Strings that are actually regular expressions, nor does it do any
-[taint checking][taint]. However, [the Checker Framework][checker]
-does this and more.
-
-It uses annotations like *@Nullable* to check types. You can even define 
-[your own annotations][customchecker] to make the static analysis done even
-more powerful.
-
 ### Code Quality
 
 Even when following best practices, even the best developer will make mistakes.
@@ -1017,7 +990,7 @@ in your code.
 
 As well as using these tools during development, it's often a good idea to also
 have them run during your build stages. They can be tied into build tools such
-as Maven or Gradle & also into continuous integration tools.
+as Maven or Gradle and also into continuous integration tools.
 
 ### Eclipse Memory Analyzer
 
@@ -1048,9 +1021,9 @@ Resources to help you become a Java master.
 
 ### Books
 
-* [Effective Java](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683)
-* [Java Concurrency in Practice](http://www.amazon.com/Java-Concurrency-Practice-Brian-Goetz/dp/0321349601)
-* [Clean Code](http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/)
+* [Effective Java](https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/)
+* [Java Concurrency in Practice](https://smile.amazon.com/Java-Concurrency-Practice-Brian-Goetz/dp/0321349601)
+* [Clean Code](https://smile.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/)
 
 ### Podcasts
 
@@ -1110,14 +1083,12 @@ Resources to help you become a Java master.
 [javastream]: http://blog.hartveld.com/2013/03/jdk-8-33-stream-api.html
 [slf4j]: http://www.slf4j.org/
 [slf4jmanual]: http://www.slf4j.org/manual.html
-[junit]: http://junit.org/
+[junit]: https://junit.org/junit5/
 [testng]: http://testng.org
-[junitparam]: https://github.com/junit-team/junit/wiki/Parameterized-tests
-[junitrules]: https://github.com/junit-team/junit/wiki/Rules
-[junittheories]: https://github.com/junit-team/junit/wiki/Theories
-[junitassume]: https://github.com/junit-team/junit/wiki/Assumptions-with-assume
+[junitparam]: https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests
+[junitext]: https://junit.org/junit5/docs/current/user-guide/#extensions
+[junitassume]: https://junit.org/junit5/docs/current/user-guide/#writing-tests-assumptions
 [jmock]: http://www.jmock.org/
-[junitfixture]: https://github.com/junit-team/junit/wiki/Test-fixtures
 [initializingbean]: http://docs.spring.io/spring/docs/3.2.6.RELEASE/javadoc-api/org/springframework/beans/factory/InitializingBean.html
 [apachecommons]: http://commons.apache.org/
 [lombok]: https://projectlombok.org/
@@ -1140,8 +1111,6 @@ Resources to help you become a Java master.
 [jmap]: http://docs.oracle.com/javase/7/docs/technotes/tools/share/jmap.html
 [jrebel]: http://zeroturnaround.com/software/jrebel/
 [taint]: https://en.wikipedia.org/wiki/Taint_checking
-[checker]: http://types.cs.washington.edu/checker-framework/
-[customchecker]: http://types.cs.washington.edu/checker-framework/tutorial/webpages/encryption-checker-cmd.html
 [builderex]: http://jlordiales.me/2012/12/13/the-builder-pattern-in-practice/
 [javadocex]: http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/ImmutableMap.Builder.html
 [dropwizard]: https://dropwizard.github.io/dropwizard/
@@ -1163,3 +1132,14 @@ Resources to help you become a Java master.
 [hikaricp]: https://brettwooldridge.github.io/HikariCP/
 [hikariopt]: https://github.com/brettwooldridge/HikariCP/wiki/Down-the-Rabbit-Hole
 [awaitility]: https://github.com/awaitility/awaitility
+[funcprog]: https://en.wikipedia.org/wiki/Functional_programming
+[foreach]: https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html#forEach-java.util.function.Consumer-
+[streams]: https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+[javatime]: https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html
+[caffeine]: https://github.com/ben-manes/caffeine
+[metrics]: https://metrics.dropwizard.io/
+[config]: https://github.com/lightbend/config
+[hocon]: https://github.com/lightbend/config/blob/master/HOCON.md
+[flyway]: https://flywaydb.org/
+[flywayapi]: https://flywaydb.org/getstarted/firststeps/api
+[jacoco]: https://www.jacoco.org/jacoco/
