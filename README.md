@@ -208,7 +208,7 @@ In Java, this is typically done with the [Spring Framework][spring]. It has a
 either code-based wiring or XML configuration-based wiring. If you use the XML 
 configuration, it's important that you [don't overuse Spring][springso] because
 of its XML-based configuration format.  There should be absolutely no logic or
-control structures in XML. It should only inject dependencies.
+control structures in XML. It should only inject dependencies. For a thorough introduction into the whole Spring ecosystem, have a look at [this article](https://www.marcobehler.com/guides/spring-framework).
 
 Good alternatives to using Spring is Google and Square's [Dagger][dagger]
 library or Google's [Guice][guice]. They don't use Spring's XML 
