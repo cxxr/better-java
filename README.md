@@ -177,8 +177,7 @@ If you create many immutable objects by hand, consider using the annotation
 processor to generate them from interfaces automatically. This minimizes 
 boilerplate code, reduces probability of bugs and promotes immutability. See
 this [presentation](https://docs.google.com/presentation/d/14u_h-lMn7f1rXE1nDiLX0azS3IkgjGl5uxp5jGJ75RE/edit#slide=id.g2a5e9c4a8_00)
-for an interesting discussion of some of the problems with normal Java coding
-patterns.
+for an interesting discussion of some problems with normal Java coding patterns.
 
 Some great code generation libraries are [immutables](https://github.com/immutables/immutables), Google's 
 [auto-value](https://github.com/google/auto/tree/master/value) and 
@@ -204,7 +203,7 @@ the best ways to write testable software is to use [dependency injection][di]
 (DI). Because Java strongly encourages OO design, to make testable software,
 you need to use DI.
 
-In Java, this is typically done with the [Spring Framework][spring]. It has a
+In Java, this is typically done with the [Spring Framework][spring]. It has an
 either code-based wiring or XML configuration-based wiring. If you use the XML 
 configuration, it's important that you [don't overuse Spring][springso] because
 of its XML-based configuration format.  There should be absolutely no logic or
@@ -375,7 +374,7 @@ This allows you to write more fluent code, which is more readable.
 ## Deploying
 
 Deploying Java properly can be a bit tricky. There are two main ways to deploy
-Java nowadays: use a framework or use a home grown solution that is more
+Java nowadays: use a framework or use a homegrown solution that is more
 flexible.
 
 ### Frameworks
@@ -403,7 +402,7 @@ are alternatives, like Gradle, but they don't have the same adoption that Maven
 has. If you're new to Maven, you should start with
 [Maven by Example][mavenexample].
 
-I like to have a root POM with all of the external dependencies you want to
+I like to have a root POM with all the external dependencies you want to
 use. It will look something [like this][rootpom]. This root POM has only one
 external dependency, but if your product is big enough, you'll have dozens.
 Your root POM should be a project on its own: in version control and released
@@ -415,7 +414,7 @@ errors.
 
 All of your Maven projects will include your root POM and all of its version
 information.  This way, you get your company's selected version of each
-external dependency, and all of the correct Maven plugins. If you need to pull
+external dependency, and all the correct Maven plugins. If you need to pull
 in external dependencies, it works just like this:
 
 ```xml
@@ -428,7 +427,7 @@ in external dependencies, it works just like this:
 ```
 
 If you want internal dependencies, that should be managed by each individual
-project's **<dependencyManagement>** section. Otherwise it would be difficult
+project's **<dependencyManagement>** section. Otherwise, it would be difficult
 to keep the root POM version number sane.
 
 #### Dependency Convergence
@@ -474,7 +473,7 @@ coverage tools for Java, but I've used Cobertura.
 You need a place to put your JARs, WARs, and EARs that you make, so you'll
 need a repository.
 
-Common choices are [Artifactory][artifactory] and [Nexus][nexus]. Both work,
+Common choices are [Artifactory][artifactory] and [Nexus][nexus]. Both work
 and have their own [pros and cons][mavenrepo].
 
 You should have your own Artifactory/Nexus installation and 
@@ -527,7 +526,7 @@ almost hard to distill everything that I like about this library, but I'm
 going to try.
 
 **Cache** is a simple way to get an in-memory cache that can be used to cache
-network access, disk access, memoize functions, or anything really. Just
+network access, disk access, memorize functions, or anything really. Just
 implement a [CacheBuilder][cachebuilder] which tells Guava how to build your
 cache and you're all set!
 
@@ -573,7 +572,7 @@ has many more examples.
 
 #### Java Tuples
 
-One of my on going annoyances with Java is that it doesn't have tuples built
+One of my ongoing annoyances with Java is that it doesn't have tuples built
 into the standard library. Luckily, the [Java tuples][javatuples] project fixes
 that.
 
@@ -589,7 +588,8 @@ Pair<String, Integer> func(String input) {
 #### Javaslang
 
 [Javaslang][javaslang] is a functional library, designed to add missing features
-that should have been part of Java 8. Some of these features are
+that should have been part of Java 8.
+Some of these features are:
 
 * an all-new functional collection library
 * tightly integrated tuples
@@ -672,8 +672,8 @@ the JVM: you have a routes file and then you write the classes referenced in
 those routes. It's actually an [entire MVC framework][playdoc], but you can
 easily use it for just REST web services.
 
-It's available for both Java and Scala. It suffers slightly from being 
-Scala-first, but it's still good to use in Java.
+It's available for both Java and Scala and suffers slightly from being 
+Scala-first, but still good to use in Java.
 
 If you're used to micro-frameworks like Flask in Python, [Spark][spark] will
 be very familiar. It works especially well with Java 8.
@@ -794,7 +794,7 @@ This fluent interface makes your tests more readable. What more could you want?
 The best Java IDE is [IntelliJ IDEA][intellij]. It has a ton of awesome
 features, and is really the main thing that makes the verbosity of Java
 bareable. Autocomplete is great, 
-[the inspections are top notch][intellijexample], and the refactoring
+[the inspections are top-notch][intellijexample], and the refactoring
 tools are really helpful.
 
 The free community edition is good enough for me, but there are loads of great
@@ -816,7 +816,7 @@ intricate bugs, Heisenbugs and the like.
 **Good alternative**: [DCEVM](https://github.com/dcevm/dcevm)
 
 Continuous integration is often a goal of software-as-a-service products. What
-if you didn't even need to wait for the build to finish to see code changes
+if you didn't even need to wait for the build to finish seeing code changes
 live?
 
 That's what [JRebel][jrebel] does. Once you hook up your server to your JRebel
@@ -867,7 +867,7 @@ as Maven or Gradle & also into continuous integration tools.
 ### Eclipse Memory Analyzer
 
 Memory leaks happen, even in Java. Luckily, there are tools for that. The best
-tool I've used to fix these is the [Eclipse Memory Analyzer][mat]. It takes a
+tool I've used to fix these are the [Eclipse Memory Analyzer][mat]. It takes a
 heap dump and lets you find the problem.
 
 There's a few ways to get a heap dump for a JVM process, but I use
