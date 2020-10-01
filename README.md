@@ -899,6 +899,7 @@ Resources to help you become a Java master.
 
 ### Podcasts
 
+* [Inside Java](https://inside.java/podcast) (Official)
 * [The Java Posse](http://www.javaposse.com/) (*discontinued*)
 * [vJUG](http://virtualjug.com/)
 * [Les Cast Codeurs](https://lescastcodeurs.com/) (*French*)
