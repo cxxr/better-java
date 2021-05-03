@@ -2,7 +2,7 @@
 
 Java 虽作为最流行的编程语言之一，但是似乎并没有什么人很享受用它。好吧，Java 确实是这样的一门编程语言，从最近发布不久的 Java 8 开始，为了更好的使用 Java，我决定收集一些库，实践和工具等相关资料。“更好” 是主观的，所以推荐使用我所说的建议的某些部分，而不是一下子全部按照这些建议来做。请尽情添加其他意见并提交 PR。
 
-这篇文章原始发布在 
+这篇文章原始发布在
 [我的博客](https://www.seancassidy.me/better-java.html).
 
 其他语言版本： [English](README.md), [简体中文](README.zh-cn.md)
@@ -55,6 +55,7 @@ Java 虽作为最流行的编程语言之一，但是似乎并没有什么人很
   * [Books（书）](#books)
   * [Podcasts（播客）](#podcasts)
   * [Videos（视频）](#videos)
+  * [Projects (业余项目)](#projects)
 
 ## Style
 
@@ -116,7 +117,7 @@ public class ComplicatedDataHolder {
     public static class Builder {
         private String data;
         private int num;
-        
+
         public Builder data(String data) {
             this.data = data;
             return this;
@@ -153,7 +154,7 @@ final ComplicatedDataHolder cdh = new ComplicatedDataHolder.Builder()
 
 一些非常棒的代码生成库如 [immutables]
 (https://github.com/immutables/immutables), 谷歌的
-[auto-value](https://github.com/google/auto/tree/master/value) 和 
+[auto-value](https://github.com/google/auto/tree/master/value) 和
 [Lombok][lombok]
 
 ### Exceptions
@@ -352,7 +353,7 @@ Java 最好的一方面就是拥有大量的第三方库可以做任何事。基
 
 [Jenkins][jenkins] 和 [Travis-CI][travis] 就成了很自然的选择.
 
-代码覆盖率非常有用，[Cobertura][cobertura] 就有 [一个很好的 Maven 插件][coberturamaven] 
+代码覆盖率非常有用，[Cobertura][cobertura] 就有 [一个很好的 Maven 插件][coberturamaven]
 [a good Maven plugin][coberturamaven] 并且支持 CI。还有一些其他的支持 Java 的代码覆盖率工具，但是我只用过 Cobertura。
 
 ### Maven repository
@@ -528,7 +529,7 @@ JAX-RS 是传统的实现方式。你可以用像 [Jersey][jersey] 这样的框�
 
 ```java
 // Typesafely execute the SQL statement directly with jOOQ
-Result<Record3<String, String, String>> result = 
+Result<Record3<String, String, String>> result =
 create.select(BOOK.TITLE, AUTHOR.FIRST_NAME, AUTHOR.LAST_NAME)
     .from(BOOK)
     .join(AUTHOR)
@@ -564,7 +565,7 @@ public class FooWidgetTest {
     @Test
     public void basicTest() {
         final FooWidgetDependency dep = context.mock(FooWidgetDependency.class);
-        
+
         context.checking(new Expectations() {{
             oneOf(dep).call(with(any(String.class)));
             atLeast(0).of(dep).optionalCall();
@@ -689,6 +690,9 @@ Heap dump file created
 * [InfoQ](http://www.infoq.com/) - see especially [presentations](http://www.infoq.com/java/presentations/) and [interviews](http://www.infoq.com/java/interviews/)
 * [Parleys](https://www.parleys.com/)
 
+### Projects
+* [DevProjects - 透过实际项目学习 Java](https://www.codementor.io/projects/java)
+
 [immutablemap]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableMap.html
 [immutablelist]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableList.html
 [immutableset]: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableSet.html
@@ -777,5 +781,3 @@ Heap dump file created
 [java8datetime]: http://www.oracle.com/technetwork/articles/java/jf14-date-time-2125367.html
 [checkedex]: http://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html
 [the-worst-mistake-of-computer-science]: https://www.lucidchart.com/techblog/2015/08/31/the-worst-mistake-of-computer-science/
-
-
