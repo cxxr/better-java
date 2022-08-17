@@ -891,6 +891,8 @@ what's going on fast.
 
 Resources to help you become a Java master.
 
+* **[Explore Java](https://kandi.openweaver.com/explore/java "kandi")**: Discover curated libraries, code snippets, top authors, trending discussions.
+
 ### Books
 
 * [Effective Java](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683)
