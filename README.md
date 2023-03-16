@@ -899,6 +899,7 @@ Resources to help you become a Java master.
 * [How to Read Java](https://www.manning.com/books/how-to-read-java)
 * [Java Persistance with Spring Data and Hibernate](https://www.manning.com/books/java-persistence-with-spring-data-and-hibernate)
 * [Classic Computer Science Problems in Java](https://www.manning.com/books/classic-computer-science-problems-in-java)
+* [100 Java Mistakes and How to Avoud Them](https://www.manning.com/books/100-java-mistakes-and-how-to-avoid-them)
 
 ### Podcasts
 
