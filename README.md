@@ -890,6 +890,7 @@ what's going on fast.
 ## Resources
 
 Resources to help you become a Java master.
+[Java Interview Questions](https://www.interviewbit.com/java-interview-questions/)
 
 ### Books
 
